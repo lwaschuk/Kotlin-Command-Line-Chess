@@ -2,6 +2,9 @@ import chess.ChessBoard
 import chess.Player
 import chess.Turn
 import chess.Verifier
+import chess.Verifier.Companion.convertBack
+import pieces.Pawn
+import pieces.PieceType
 import kotlin.system.exitProcess
 
 fun main() {
@@ -24,27 +27,54 @@ fun main() {
             var s: String
 
             do {
-                s = getInput(turn.getTurn(), p1 ,p2)
-                validInput = verifyInput(s).also { if (!it) {println("Invalid Input")} }
+                s = getInput(turn.getTurn(), p1, p2)
+                validInput = verifyInput(s).also {
+                    if (!it) {
+                        println("Invalid Input")
+                    }
+                }
             } while (!validInput)
 
             val chessMove = Verifier.convertInput(s)
 
-            if (exit(s)) { bye() }
+            if (exit(s)) {
+                bye()
+            }
 
             if (validMove) {
-                validMove = board.sourceCoordinateVerifier(chessMove, turn).also { if (!it) {println("No ${turn.colorToString()} " +
-                        "pawn at ${s[0]}${s[1]}")} }
+                validMove = board.sourceCoordinateVerifier(chessMove, turn).also {
+                    if (!it) {
+                        println(
+                            "No ${turn.colorToString()} " +
+                                    "pawn at ${s[0]}${s[1]}"
+                        )
+                    }
+                }
             }
+
+            val coordinates = Pair(chessMove.first.first, chessMove.first.second)
+            var pc = board.getPiece(coordinates)
+            if (pc.type == PieceType.PAWN) {
+                pc = pc as Pawn
+                println(convertBack(pc.canMove(coordinates, board, turn)))
+            }
+
+
             if (validMove) {
-                validMove = board.move(chessMove, turn).also { if (!it) {println("Invalid Input")} }
+                validMove = board.move(chessMove, turn).also {
+                    if (!it) {
+                        println("Invalid Input")
+                    }
+                }
             }
 
         } while (!validMove)
 
         board.render()
         turn.nextTurn()
-        if (board.gameOver(turn)) { bye() }
+        if (board.gameOver(turn)) {
+            bye()
+        }
     }
 }
 
@@ -67,7 +97,7 @@ fun bye() {
     exitProcess(0)
 }
 
-fun getInput(p1Turn: Boolean, p1:Player, p2:Player) : String {
+fun getInput(p1Turn: Boolean, p1: Player, p2: Player): String {
     if (p1Turn) {
         println("${p1.name()}'s turn:")
     }
@@ -77,6 +107,6 @@ fun getInput(p1Turn: Boolean, p1:Player, p2:Player) : String {
     return readLine()!!
 }
 
-fun exit(s: String?) : Boolean {
+fun exit(s: String?): Boolean {
     return s == "exit"
 }

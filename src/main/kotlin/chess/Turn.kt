@@ -1,5 +1,7 @@
 package chess
 
+import pieces.Color
+
 class Turn {
     private var p1Turn: Boolean = true
     private var color: Color = Color.W

@@ -1,11 +1,17 @@
 package chess
 
+import pieces.PieceType
+
 class Verifier {
-    fun verify(chessMove: Pair<Pair<Int, Int>, Pair<Int, Int>>, turn: Turn) : Boolean {
+    fun verify(chessMove: Pair<Pair<Int, Int>, Pair<Int, Int>>, turn: Turn): Boolean {
         return validatePieceRules(chessMove, PieceType.PAWN, turn)
     }
 
-    private fun validatePieceRules(chessMove: Pair<Pair<Int, Int>, Pair<Int, Int>>, pieceType: PieceType, turn: Turn): Boolean {
+    private fun validatePieceRules(
+        chessMove: Pair<Pair<Int, Int>, Pair<Int, Int>>,
+        pieceType: PieceType,
+        turn: Turn,
+    ): Boolean {
         return when (pieceType) {
             PieceType.PAWN -> validatePawnMove(chessMove, turn)
             PieceType.KNIGHT -> true
@@ -17,7 +23,7 @@ class Verifier {
         }
     }
 
-    private fun validatePawnMove(chessMove: Pair<Pair<Int, Int>, Pair<Int, Int>>, turn: Turn) : Boolean {
+    private fun validatePawnMove(chessMove: Pair<Pair<Int, Int>, Pair<Int, Int>>, turn: Turn): Boolean {
         return pawnStraight(chessMove, turn) || pawnTake(chessMove, turn)
     }
 
@@ -38,13 +44,12 @@ class Verifier {
                 val range = startCoordinates.first + 1..startCoordinates.first + 1
                 endCoordinates.first in range
             }
-        }
-        else {
+        } else {
             return if (startCoordinates.first == 6) {
                 val range = startCoordinates.first - 1 downTo startCoordinates.first - 2
                 endCoordinates.first in range
             } else {
-                val range = startCoordinates.first - 1  downTo startCoordinates.first - 1
+                val range = startCoordinates.first - 1 downTo startCoordinates.first - 1
                 endCoordinates.first in range
             }
         }
@@ -64,6 +69,7 @@ class Verifier {
             endCoordinates == takeLeft || endCoordinates == takeRight
         }
     }
+
     companion object {
         fun convertInput(input: String): Pair<Pair<Int, Int>, Pair<Int, Int>> {
             val startRow = input[1] - '1'
@@ -76,6 +82,16 @@ class Verifier {
 
 //            println("Move from S:ROW ${startCoordinates.first} S:COL ${startCoordinates.second} to E:ROW ${endCoordinates.first} E:COL ${endCoordinates.second}")
             return Pair(startCoordinates, endCoordinates)
+        }
+
+        fun convertBack(s: Set<Pair<Int, Int>>): Set<Pair<Char, Char>> {
+            val newSet = mutableSetOf<Pair<Char, Char>>()
+            for (item in s) {
+                val number = item.first + '1'.code
+                val letter = item.second + 'a'.code
+                newSet.add(Pair(letter.toChar(), number.toChar()))
+            }
+            return newSet
         }
     }
 }
