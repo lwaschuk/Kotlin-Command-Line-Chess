@@ -1,6 +1,8 @@
 package pieces
 
 import chess.ChessBoard
+import chess.ChessMove
+import chess.Location
 import chess.Turn
 
 class Queen(
@@ -18,8 +20,8 @@ class Queen(
 //    Please note that this is a simplified version of the Queen movement, that only consider the standard Queen movements,
 //    the actual rule for Queen may depend on the game you are implementing.
 //     */
-    override fun canMove(coordinates: Pair<Int, Int>, chessBoard: ChessBoard, turn: Turn): Set<Pair<Int, Int>> {
-        val possibleMoves = mutableSetOf<Pair<Int, Int>>()
+    override fun canMove(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
+        val possibleMoves = mutableSetOf<Location>()
 
 //        // Check squares diagonally to the left and up
 //        var r = row - 1
@@ -141,5 +143,10 @@ class Queen(
 //        }
 
         return possibleMoves
+    }
+
+    override fun move(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
+
+        return false
     }
 }
