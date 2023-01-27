@@ -15,4 +15,15 @@ class Location(row: Int, col: Int) {
         return this.location.second
     }
 
+    fun value(): Pair<Int, Int> {
+        return this.location
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is Location) {
+            return false
+        }
+        return row() == other.row() && column() == other.column()
+    }
+
 }

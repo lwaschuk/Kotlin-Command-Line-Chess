@@ -1,33 +1,30 @@
 import chess.ChessBoard
-import chess.Player
+import chess.ChessMove
+import chess.GameLogic
 import chess.Turn
-import chess.Verifier
-import chess.Verifier.Companion.convertBack
-import pieces.Pawn
-import pieces.PieceType
 import kotlin.system.exitProcess
 
 fun main() {
-    val board = ChessBoard()
+    // init
+    val chessBoard = ChessBoard()
+    val gameLogic = GameLogic(chessBoard)
     val turn = Turn()
 
+    // get names
     println("Pawns-Only Chess")
-    println("First Player's name:")
-    val p1 = Player(readLine()!!)
-    println("Second Player's name:")
-    val p2 = Player(readLine()!!)
 
-    board.startGame()
+    // start game
+    gameLogic.startGame()
 
     while (true) {
-
         do {
             var validMove = true
             var validInput: Boolean
             var s: String
 
+            // get move
             do {
-                s = getInput(turn.getTurn(), p1, p2)
+                s = getInput(turn.getTurn())
                 validInput = verifyInput(s).also {
                     if (!it) {
                         println("Invalid Input")
@@ -35,14 +32,15 @@ fun main() {
                 }
             } while (!validInput)
 
-            val chessMove = Verifier.convertInput(s)
+            val chessMove = ChessMove(s)
 
             if (exit(s)) {
                 bye()
             }
 
+            // check the "start location" to (1) make sure a pc is there (2) make sure it's the appropriate turn
             if (validMove) {
-                validMove = board.sourceCoordinateVerifier(chessMove, turn).also {
+                validMove = gameLogic.sourceCoordinateVerifier(chessMove, turn).also {
                     if (!it) {
                         println(
                             "No ${turn.colorToString()} " +
@@ -52,16 +50,13 @@ fun main() {
                 }
             }
 
-            val coordinates = Pair(chessMove.first.first, chessMove.first.second)
-            var pc = board.getPiece(coordinates)
-            if (pc.type == PieceType.PAWN) {
-                pc = pc as Pawn
-                println(convertBack(pc.canMove(coordinates, board, turn)))
-            }
+            val startLocation = chessMove.startLocation()
+            val possibleMoves = chessBoard.getPiece(startLocation).canMove(startLocation, chessBoard, turn)
+            println(ChessMove.convertLocation(possibleMoves))
 
 
             if (validMove) {
-                validMove = board.move(chessMove, turn).also {
+                validMove = chessBoard.getPiece(startLocation).move(chessMove, chessBoard, turn).also {
                     if (!it) {
                         println("Invalid Input")
                     }
@@ -70,9 +65,9 @@ fun main() {
 
         } while (!validMove)
 
-        board.render()
+        chessBoard.render()
         turn.nextTurn()
-        if (board.gameOver(turn)) {
+        if (gameLogic.gameOver(turn)) {
             bye()
         }
     }
@@ -97,12 +92,12 @@ fun bye() {
     exitProcess(0)
 }
 
-fun getInput(p1Turn: Boolean, p1: Player, p2: Player): String {
+fun getInput(p1Turn: Boolean): String {
     if (p1Turn) {
-        println("${p1.name()}'s turn:")
+        println("Player 1's turn:")
     }
     if (!p1Turn) {
-        println("${p2.name()}'s turn:")
+        println("Player 2's turn:")
     }
     return readLine()!!
 }

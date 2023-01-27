@@ -22,4 +22,16 @@ class ChessMove(input: String) {
     fun endLocation(): Location {
         return this.chessMove.second
     }
+
+    companion object {
+        fun convertLocation(input: Set<Location>): Set<Pair<Char, Char>> {
+            val newSet = mutableSetOf<Pair<Char, Char>>()
+            for (location in input) {
+                val letter = location.column() + 'a'.code
+                val number = location.row() + '1'.code
+                newSet.add(Pair(letter.toChar(), number.toChar()))
+            }
+            return newSet
+        }
+    }
 }

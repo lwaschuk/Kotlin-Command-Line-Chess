@@ -2,7 +2,6 @@ package chess
 
 import pieces.EmptySpot
 import pieces.IChessPiece
-import pieces.Pawn
 import pieces.PieceType
 
 class ChessBoard {
@@ -27,19 +26,6 @@ class ChessBoard {
 
     fun getPiece(coordinates: Location): IChessPiece {
         return this.chessBoard[coordinates.row()][coordinates.column()]
-    }
-
-    fun getPieceClass(coordinates: Pair<Int, Int>): IChessPiece {
-        return when (this.chessBoard[coordinates.first][coordinates.second]) {
-            is Pawn -> this.chessBoard[coordinates.first][coordinates.second] as Pawn
-//                is Rook -> Rook::class.java
-//                is Knight -> Knight::class.java
-//                is Bishop -> Bishop::class.java
-//                is Queen -> Queen::class.java
-//                is King -> King::class.java
-//                is EmptySpot -> EmptySpot::class.java
-            else -> throw IllegalArgumentException("Error casting")
-        }
     }
 
     fun setPiece(location: Location, piece: IChessPiece) {
