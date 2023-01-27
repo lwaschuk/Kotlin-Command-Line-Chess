@@ -1,6 +1,8 @@
 package pieces
 
 import chess.ChessBoard
+import chess.ChessMove
+import chess.Location
 import chess.Turn
 
 class Bishop(
@@ -15,8 +17,8 @@ class Bishop(
 //    If it finds an unoccupied square or a square occupied by an opponent, it adds it to the possible moves list and continues
 //    checking the next square in that diagonal direction
 //     */
-    override fun canMove(coordinates: Pair<Int, Int>, chessBoard: ChessBoard, turn: Turn): Set<Pair<Int, Int>> {
-        val possibleMoves = mutableSetOf<Pair<Int, Int>>()
+    override fun canMove(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
+        val possibleMoves = mutableSetOf<Location>()
 
 //        // Check squares diagonally to the left and up
 //        var r = row - 1
@@ -86,5 +88,10 @@ class Bishop(
 //            c++
 //        }
         return possibleMoves
+    }
+
+    override fun move(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
+
+        return false
     }
 }

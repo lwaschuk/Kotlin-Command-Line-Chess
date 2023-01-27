@@ -1,6 +1,8 @@
 package pieces
 
 import chess.ChessBoard
+import chess.ChessMove
+import chess.Location
 import chess.Turn
 
 class Knight(
@@ -21,8 +23,8 @@ class Knight(
 //    a simplified version of the Knight movement, that only consider the standard Knight movements, the actual rule for
 //    Knights may depend on the game you are implementing.
 //     */
-    override fun canMove(coordinates: Pair<Int, Int>, chessBoard: ChessBoard, turn: Turn): Set<Pair<Int, Int>> {
-        val possibleMoves = mutableSetOf<Pair<Int, Int>>()
+    override fun canMove(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
+        val possibleMoves = mutableSetOf<Location>()
 //        val dx = intArrayOf(2, 1, -1, -2, -2, -1, 1, 2)
 //        val dy = intArrayOf(1, 2, 2, 1, -1, -2, -2, -1)
 //
@@ -38,5 +40,10 @@ class Knight(
 //            }
 //        }
         return possibleMoves
+    }
+
+    override fun move(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
+
+        return false
     }
 }

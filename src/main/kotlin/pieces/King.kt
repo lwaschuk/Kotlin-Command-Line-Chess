@@ -1,6 +1,8 @@
 package pieces
 
 import chess.ChessBoard
+import chess.ChessMove
+import chess.Location
 import chess.Turn
 
 class King(
@@ -19,8 +21,8 @@ class King(
 //    Please note that this is a simplified version of the King movement, that only consider the standard King movements, the
 //     actual rule for King may depend on the game you are implementing.
 //     */
-    override fun canMove(coordinates: Pair<Int, Int>, chessBoard: ChessBoard, turn: Turn): Set<Pair<Int, Int>> {
-        val possibleMoves = mutableSetOf<Pair<Int, Int>>()
+    override fun canMove(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
+        val possibleMoves = mutableSetOf<Location>()
 //        val dx = intArrayOf(-1, -1, -1, 0, 1, 1, 1, 0)
 //        val dy = intArrayOf(-1, 0, 1, 1, 1, 0, -1, -1)
 //
@@ -35,5 +37,10 @@ class King(
 //            }
 //        }
         return possibleMoves
+    }
+
+    override fun move(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
+
+        return false
     }
 }

@@ -1,6 +1,8 @@
 package pieces
 
 import chess.ChessBoard
+import chess.ChessMove
+import chess.Location
 import chess.Turn
 
 class Rook(
@@ -16,8 +18,8 @@ class Rook(
 //    Please note that this is a simplified version of the Rook movement, that only consider the standard Rook movements,
 //    the actual rule for Rooks may depend on the game you are implementing.
 //     */
-    override fun canMove(coordinates: Pair<Int, Int>, chessBoard: ChessBoard, turn: Turn): Set<Pair<Int, Int>> {
-        val possibleMoves = mutableSetOf<Pair<Int, Int>>()
+    override fun canMove(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
+        val possibleMoves = mutableSetOf<Location>()
 //        when(direction) {
 //            "left" -> {
 //                // Check squares to the left
@@ -49,5 +51,10 @@ class Rook(
 //            }
 //        }
         return possibleMoves
+    }
+
+    override fun move(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
+
+        return false
     }
 }
