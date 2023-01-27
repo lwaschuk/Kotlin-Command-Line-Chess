@@ -77,10 +77,14 @@ class Pawn(
 
     override fun move(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
         val possibleMoves = canMove(chessMove.startLocation(), chessBoard, turn)
-        if (chessMove.endLocation() in possibleMoves) {
-            chessBoard.setPiece(chessMove.endLocation(), chessBoard.getPiece(chessMove.startLocation()))
-            chessBoard.setPiece(chessMove.startLocation(), EmptySpot())
 
+        for (move in possibleMoves) {
+            println("END LOCATION: ${chessMove.endLocation()} \nPOSSIBLE MOVE: $move")
+            if (chessMove.endLocation() == move) {
+                chessBoard.setPiece(chessMove.endLocation(), chessBoard.getPiece(chessMove.startLocation()))
+                chessBoard.setPiece(chessMove.startLocation(), EmptySpot())
+                return true
+            }
         }
         return false
     }
