@@ -1,0 +1,4 @@
+package Integration
+
+class GameTest {
+}
