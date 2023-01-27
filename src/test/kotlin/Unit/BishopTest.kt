@@ -1,0 +1,4 @@
+package Unit
+
+class BishopTest {
+}
