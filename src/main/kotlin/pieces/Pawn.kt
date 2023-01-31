@@ -79,10 +79,33 @@ class Pawn(
         val possibleMoves = canMove(chessMove.startLocation(), chessBoard, turn)
 
         for (move in possibleMoves) {
-            println("END LOCATION: ${chessMove.endLocation()} \nPOSSIBLE MOVE: $move")
             if (chessMove.endLocation() == move) {
-                chessBoard.setPiece(chessMove.endLocation(), chessBoard.getPiece(chessMove.startLocation()))
-                chessBoard.setPiece(chessMove.startLocation(), EmptySpot())
+                val direction = if (turn.getColor() == Color.W) 1 else -1
+                val behindEndLocation = Location(chessMove.endLocation().row() - direction, chessMove.endLocation().column())
+                var behindEndPiece =
+                    chessBoard.getPiece(behindEndLocation)
+
+                // if nothing is at the end location and a pawn behind it en passant
+                if ((behindEndPiece.type == PieceType.PAWN) && (chessMove.startLocation().column() != chessMove.endLocation().column())) {
+                    behindEndPiece = behindEndPiece as Pawn
+                    if (behindEndPiece.canBeEnPassant && behindEndPiece.color == turn.enemyColor()) {
+                        chessBoard.setPiece(chessMove.endLocation(), chessBoard.getPiece(chessMove.startLocation()))
+                        chessBoard.setPiece(chessMove.startLocation(), EmptySpot())
+                        chessBoard.setPiece(behindEndLocation, EmptySpot())
+                    }
+                }
+                else if ((kotlin.math.abs(chessMove.startLocation().row() - chessMove.endLocation().row()) == 2)
+                    && (chessBoard.getPiece(chessMove.startLocation()).type == PieceType.PAWN)) {
+                    val enPassant = Pawn(turn.getColor(), true)
+                    chessBoard.setPiece(chessMove.endLocation(), enPassant)
+                    chessBoard.setPiece(chessMove.startLocation(), EmptySpot())
+
+                }
+                else {
+                    chessBoard.setPiece(chessMove.endLocation(), chessBoard.getPiece(chessMove.startLocation()))
+                    chessBoard.setPiece(chessMove.startLocation(), EmptySpot())
+                }
+
                 return true
             }
         }

@@ -99,7 +99,7 @@ fun getInput(p1Turn: Boolean): String {
     if (!p1Turn) {
         println("Player 2's turn:")
     }
-    return readLine()!!
+    return readln()
 }
 
 fun exit(s: String?): Boolean {
