@@ -111,4 +111,12 @@ class Pawn(
         }
         return false
     }
+
+    override fun print(): String {
+        return if (this.color == Color.W){
+            "\u2659"
+        } else {
+            "\u265F"
+        }
+    }
 }

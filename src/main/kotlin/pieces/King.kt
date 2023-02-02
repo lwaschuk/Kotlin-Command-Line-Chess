@@ -43,4 +43,12 @@ class King(
 
         return false
     }
+
+    override fun print(): String {
+        return if (this.color == Color.W){
+            "\u2654"
+        } else {
+            "\u265A"
+        }
+    }
 }
