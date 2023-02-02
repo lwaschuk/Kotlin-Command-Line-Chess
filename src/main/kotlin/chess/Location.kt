@@ -26,4 +26,12 @@ class Location(row: Int, col: Int) {
         return row() == other.row() && column() == other.column()
     }
 
+    operator fun plus(direction: Location): Location {
+        return Location(row() + direction.row(), column() + direction.column())
+    }
+
+    fun isValid(location: Location): Boolean {
+        return location.row() in ChessBoard.ROW_START..ChessBoard.ROW_END
+                && location.column() in ChessBoard.COL_START..ChessBoard.COL_END
+    }
 }

@@ -13,63 +13,31 @@ class Rook(
     override fun canMove(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
         val possibleMoves = mutableSetOf<Location>()
 
+        val directions = listOf(
+            Location(1, 0),
+            Location(0, 1),
+            Location(-1, 0),
+            Location(0, -1)
+        )
 
-        for (row in startLocation.row()+1..ChessBoard.ROW_END) {
-            val nextLocation = Location(row, startLocation.column())
-            val next = chessBoard.getPiece(nextLocation)
-            if (next.color == turn.getColor()) {
-                break
-            }
-            else if (next.color == turn.enemyColor()) {
-                possibleMoves.add(nextLocation)
-                break
-            }
-            else if (next.color == Color.E) {
-                possibleMoves.add(nextLocation)
-            }
-        }
-        for (column in startLocation.column()+1..ChessBoard.COL_END) {
-            val nextLocation = Location(startLocation.row(), column)
-            val next = chessBoard.getPiece(nextLocation)
-            if (next.color == turn.getColor()) {
-                break
-            }
-            else if (next.color == turn.enemyColor()) {
-                possibleMoves.add(nextLocation)
-                break
-            }
-            else if (next.color == Color.E) {
-                possibleMoves.add(nextLocation)
+        for (direction in directions) {
+            var nextLocation = startLocation + direction
+            while (nextLocation.isValid(nextLocation)) {
+                val next = chessBoard.getPiece(nextLocation)
+                if (next.color == turn.getColor()) {
+                    break
+                }
+                else if (next.color == turn.enemyColor()) {
+                    possibleMoves.add(nextLocation)
+                    break
+                }
+                else if (next.color == Color.E) {
+                    possibleMoves.add(nextLocation)
+                    nextLocation += direction
+                }
             }
         }
-        for (row in startLocation.row()-1 downTo ChessBoard.ROW_START) {
-            val nextLocation = Location(row, startLocation.column())
-            val next = chessBoard.getPiece(nextLocation)
-            if (next.color == turn.getColor()) {
-                break
-            }
-            else if (next.color == turn.enemyColor()) {
-                possibleMoves.add(nextLocation)
-                break
-            }
-            else if (next.color == Color.E) {
-                possibleMoves.add(nextLocation)
-            }
-        }
-        for (column in startLocation.column()-1 downTo ChessBoard.COL_START) {
-            val nextLocation = Location(startLocation.row(), column)
-            val next = chessBoard.getPiece(nextLocation)
-            if (next.color == turn.getColor()) {
-                break
-            }
-            else if (next.color == turn.enemyColor()) {
-                possibleMoves.add(nextLocation)
-                break
-            }
-            else if (next.color == Color.E) {
-                possibleMoves.add(nextLocation)
-            }
-        }
+
         return possibleMoves
     }
 
