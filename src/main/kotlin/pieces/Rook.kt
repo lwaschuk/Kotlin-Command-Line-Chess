@@ -10,59 +10,88 @@ class Rook(
 ) : IChessPiece {
     override val type: PieceType = PieceType.ROOK
 
-    //    /*
-//    In this version of the function, I added an additional parameter called direction which is a string that indicates
-//    in which direction the function should check for possible moves, it could be "left" or "right".
-//    You can call this function twice, once with direction "left" and once with direction "right" to get all the possible
-//    moves for the Rook.
-//    Please note that this is a simplified version of the Rook movement, that only consider the standard Rook movements,
-//    the actual rule for Rooks may depend on the game you are implementing.
-//     */
     override fun canMove(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
         val possibleMoves = mutableSetOf<Location>()
-//        when(direction) {
-//            "left" -> {
-//                // Check squares to the left
-//                for (c in col - 1 downTo 0) {
-//                    val square = board[row][c]
-//                    if (square == null) {
-//                        possibleMoves.add(Pair(row, c))
-//                    } else if (square.color != color) {
-//                        possibleMoves.add(Pair(row, c))
-//                        break
-//                    } else {
-//                        break
-//                    }
-//                }
-//            }
-//            "right" -> {
-//                // Check squares to the right
-//                for (c in col + 1..7) {
-//                    val square = board[row][c]
-//                    if (square == null) {
-//                        possibleMoves.add(Pair(row, c))
-//                    } else if (square.color != color) {
-//                        possibleMoves.add(Pair(row, c))
-//                        break
-//                    } else {
-//                        break
-//                    }
-//                }
-//            }
-//        }
+
+
+        for (row in startLocation.row()+1..ChessBoard.ROW_END) {
+            val nextLocation = Location(row, startLocation.column())
+            val next = chessBoard.getPiece(nextLocation)
+            if (next.color == turn.getColor()) {
+                break
+            }
+            else if (next.color == turn.enemyColor()) {
+                possibleMoves.add(nextLocation)
+                break
+            }
+            else if (next.color == Color.E) {
+                possibleMoves.add(nextLocation)
+            }
+        }
+        for (column in startLocation.column()+1..ChessBoard.COL_END) {
+            val nextLocation = Location(startLocation.row(), column)
+            val next = chessBoard.getPiece(nextLocation)
+            if (next.color == turn.getColor()) {
+                break
+            }
+            else if (next.color == turn.enemyColor()) {
+                possibleMoves.add(nextLocation)
+                break
+            }
+            else if (next.color == Color.E) {
+                possibleMoves.add(nextLocation)
+            }
+        }
+        for (row in startLocation.row()-1 downTo ChessBoard.ROW_START) {
+            val nextLocation = Location(row, startLocation.column())
+            val next = chessBoard.getPiece(nextLocation)
+            if (next.color == turn.getColor()) {
+                break
+            }
+            else if (next.color == turn.enemyColor()) {
+                possibleMoves.add(nextLocation)
+                break
+            }
+            else if (next.color == Color.E) {
+                possibleMoves.add(nextLocation)
+            }
+        }
+        for (column in startLocation.column()-1 downTo ChessBoard.COL_START) {
+            val nextLocation = Location(startLocation.row(), column)
+            val next = chessBoard.getPiece(nextLocation)
+            if (next.color == turn.getColor()) {
+                break
+            }
+            else if (next.color == turn.enemyColor()) {
+                possibleMoves.add(nextLocation)
+                break
+            }
+            else if (next.color == Color.E) {
+                possibleMoves.add(nextLocation)
+            }
+        }
         return possibleMoves
     }
 
     override fun move(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
+        val possibleMoves = canMove(chessMove.startLocation(), chessBoard, turn)
+
+        for (move in possibleMoves) {
+            if (chessMove.endLocation() == move) {
+                chessBoard.setPiece(chessMove.endLocation(), chessBoard.getPiece(chessMove.startLocation()))
+                chessBoard.setPiece(chessMove.startLocation(), EmptySpot())
+                return true
+            }
+        }
 
         return false
     }
 
     override fun print(): String {
         return if (this.color == Color.W){
-            "\u2656"
-        } else {
             "\u265C"
+        } else {
+            "\u2656"
         }
     }
 }

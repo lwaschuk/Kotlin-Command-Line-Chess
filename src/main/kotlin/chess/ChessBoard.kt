@@ -31,4 +31,11 @@ class ChessBoard {
     fun setPiece(location: Location, piece: IChessPiece) {
         this.chessBoard[location.row()][location.column()] = piece
     }
+
+    companion object {
+        const val ROW_START = 0
+        const val COL_START = 0
+        const val ROW_END = 7
+        const val COL_END = 7
+    }
 }
