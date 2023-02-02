@@ -57,4 +57,12 @@ class Rook(
 
         return false
     }
+
+    override fun print(): String {
+        return if (this.color == Color.W){
+            "\u2656"
+        } else {
+            "\u265C"
+        }
+    }
 }

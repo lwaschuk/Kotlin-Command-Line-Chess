@@ -10,4 +10,5 @@ interface IChessPiece {
     val type: PieceType
     fun canMove(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location>
     fun move(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean
+    fun print(): String
 }

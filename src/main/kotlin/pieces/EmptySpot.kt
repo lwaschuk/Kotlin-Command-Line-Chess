@@ -16,4 +16,8 @@ class EmptySpot : IChessPiece {
 
         return false
     }
+
+    override fun print(): String {
+        return " "
+    }
 }

@@ -46,4 +46,12 @@ class Knight(
 
         return false
     }
+
+    override fun print(): String {
+        return if (this.color == Color.W){
+            "\u2658"
+        } else {
+            "\u265E"
+        }
+    }
 }
