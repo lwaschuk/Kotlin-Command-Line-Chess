@@ -19,8 +19,8 @@ class Pawn(
         if (nextRow in 0..7 && col in 0..7) {
             val nextSquare = chessBoard.getPiece(Location(nextRow, col))
             if (nextSquare is EmptySpot) {
-                // pawn can move one square forward if it is unoccupied
                 possibleMoves.add(Location(nextRow, col))
+                // find promote later
 //                if(promote && (nextRow == 0 || nextRow == 7)) {
 //                    possibleMoves.add(Pair(nextRow,nextCol, PromotionType.QUEEN))
 //                    possibleMoves.add(Pair(nextRow,nextCol, PromotionType.ROOK))
@@ -35,9 +35,9 @@ class Pawn(
                 }
             }
 
-            if (col in 1..6) {
-                if (nextRow in 1..6) {
-                    val leftCol = col - direction
+            if (nextRow in ChessBoard.ROW_START..ChessBoard.ROW_END) {
+                val leftCol = col - direction
+                if (leftCol in ChessBoard.COL_START..ChessBoard.COL_END){
                     val leftDCoords = Location(nextRow, leftCol)
                     val leftDPiece = chessBoard.getPiece(leftDCoords)
                     if (leftDPiece.color == turn.enemyColor()) {
@@ -53,9 +53,12 @@ class Pawn(
                             }
                         }
                     }
+                }
 
-                    val rightDCoords = Location(nextRow, col + direction)
-                    val rightDPiece = chessBoard.getPiece(leftDCoords)
+                val rightCol = col + direction
+                if (rightCol in ChessBoard.COL_START..ChessBoard.COL_END) {
+                    val rightDCoords = Location(nextRow, rightCol)
+                    val rightDPiece = chessBoard.getPiece(rightDCoords)
                     if (rightDPiece.color == turn.enemyColor()) {
                         possibleMoves.add(rightDCoords)
                     }
