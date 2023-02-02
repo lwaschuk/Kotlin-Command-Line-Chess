@@ -39,16 +39,16 @@ fun main() {
             }
 
             // check the "start location" to (1) make sure a pc is there (2) make sure it's the appropriate turn
-            if (validMove) {
-                validMove = gameLogic.sourceCoordinateVerifier(chessMove, turn).also {
-                    if (!it) {
-                        println(
-                            "No ${turn.colorToString()} " +
-                                    "piece at ${s[0]}${s[1]}"
-                        )
-                    }
+
+            validMove = gameLogic.sourceCoordinateVerifier(chessMove, turn).also {
+                if (!it) {
+                    println(
+                        "No ${turn.colorToString()} " +
+                                "piece at ${s[0]}${s[1]}"
+                    )
                 }
             }
+
 
             val startLocation = chessMove.startLocation()
             val possibleMoves = chessBoard.getPiece(startLocation).canMove(startLocation, chessBoard, turn)
@@ -58,7 +58,7 @@ fun main() {
             if (validMove) {
                 validMove = chessBoard.getPiece(startLocation).move(chessMove, chessBoard, turn).also {
                     if (!it) {
-                        println("Invalid Input")
+                        println("Not a possible chess move")
                     }
                 }
             }
