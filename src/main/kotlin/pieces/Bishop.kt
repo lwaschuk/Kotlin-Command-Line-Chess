@@ -97,9 +97,9 @@ class Bishop(
 
     override fun print(): String {
         return if (this.color == Color.W){
-            "\u265D"
-        } else {
             "\u2657"
+        } else {
+            "\u265D"
         }
     }
 }

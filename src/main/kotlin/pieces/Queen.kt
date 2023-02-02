@@ -152,9 +152,9 @@ class Queen(
 
     override fun print(): String {
         return if (this.color == Color.W){
-            "\u265B"
-        } else {
             "\u2655"
+        } else {
+            "\u265B"
         }
     }
 }
