@@ -92,7 +92,7 @@ class GameLogic(chessBoard: ChessBoard) {
     fun sourceCoordinateVerifier(chessMove: ChessMove, turn: Turn): Boolean {
         val startCoordinates = chessMove.startLocation()
         val piece = chessBoard.getPiece(startCoordinates)
-        return piece.type == PieceType.PAWN && piece.color == turn.getColor()
+        return piece.type != PieceType.EMPTY && piece.color == turn.getColor()
     }
 
 

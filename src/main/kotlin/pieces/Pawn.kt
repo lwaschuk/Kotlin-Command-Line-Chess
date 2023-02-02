@@ -37,7 +37,8 @@ class Pawn(
 
             if (col in 1..6) {
                 if (nextRow in 1..6) {
-                    val leftDCoords = Location(nextRow, col - direction)
+                    val leftCol = col - direction
+                    val leftDCoords = Location(nextRow, leftCol)
                     val leftDPiece = chessBoard.getPiece(leftDCoords)
                     if (leftDPiece.color == turn.enemyColor()) {
                         possibleMoves.add(leftDCoords)
@@ -114,9 +115,9 @@ class Pawn(
 
     override fun print(): String {
         return if (this.color == Color.W){
-            "\u2659"
-        } else {
             "\u265F"
+        } else {
+            "\u2659"
         }
     }
 }

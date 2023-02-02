@@ -44,7 +44,7 @@ fun main() {
                     if (!it) {
                         println(
                             "No ${turn.colorToString()} " +
-                                    "pawn at ${s[0]}${s[1]}"
+                                    "piece at ${s[0]}${s[1]}"
                         )
                     }
                 }
@@ -94,10 +94,10 @@ fun bye() {
 
 fun getInput(p1Turn: Boolean): String {
     if (p1Turn) {
-        println("Player 1's turn:")
+        print("White's turn:\n> ")
     }
     if (!p1Turn) {
-        println("Player 2's turn:")
+        print("Black's turn:\n> ")
     }
     return readln()
 }
