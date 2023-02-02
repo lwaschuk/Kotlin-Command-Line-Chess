@@ -13,7 +13,7 @@ class ChessBoard {
             print("${row + 1} ")
             for (col in 0 until 8) {
                 if (this.chessBoard[row][col].type != PieceType.EMPTY) {
-                    print("| ${this.chessBoard[row][col].color} ")
+                    print("| ${this.chessBoard[row][col].print()} ")
                 } else {
                     print("|   ")
                 }
