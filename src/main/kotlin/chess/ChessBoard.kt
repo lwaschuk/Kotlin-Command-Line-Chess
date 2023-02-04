@@ -1,8 +1,6 @@
 package chess
 
-import pieces.EmptySpot
-import pieces.IChessPiece
-import pieces.PieceType
+import pieces.*
 
 class ChessBoard {
     private var chessBoard = Array(8) { Array<IChessPiece>(8) { EmptySpot() } }
