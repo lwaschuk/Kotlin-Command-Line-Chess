@@ -1,4 +1,4 @@
-package chess
+package game_helpers
 
 import pieces.*
 
@@ -7,9 +7,9 @@ class ChessBoard {
 
     fun render() {
         println("  +---+---+---+---+---+---+---+---+")
-        for (row in 7 downTo 0) {
+        for (row in ROW_END downTo ROW_START) {
             print("${row + 1} ")
-            for (col in 0 until 8) {
+            for (col in COL_START .. COL_END) {
                 if (this.chessBoard[row][col].type != PieceType.EMPTY) {
                     print("| ${this.chessBoard[row][col].print()} ")
                 } else {

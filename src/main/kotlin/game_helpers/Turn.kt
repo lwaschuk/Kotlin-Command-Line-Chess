@@ -1,10 +1,11 @@
-package chess
+package game_helpers
 
 import pieces.Color
 
 class Turn(p1Turn: Boolean = true) {
     private var p1Turn: Boolean
     private var color: Color
+
     init {
         this.p1Turn = p1Turn
         this.color = if (this.p1Turn) Color.W else Color.B

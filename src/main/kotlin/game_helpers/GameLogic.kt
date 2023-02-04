@@ -1,4 +1,4 @@
-package chess
+package game_helpers
 
 import pieces.*
 
@@ -11,21 +11,24 @@ class GameLogic(chessBoard: ChessBoard) {
 
     fun startGame() {
         initChessPieces()
-//        test()
+//        testCheckStale()
         chessBoard.render()
     }
 
-    private fun test() {
+    private fun testCheckStale() {
         chessBoard.setPiece(Location(5,6), Rook(Color.W))
         chessBoard.setPiece(Location(6,3), Queen(Color.W))
         chessBoard.setPiece(Location(0,2), King(Color.W))
         chessBoard.setPiece(Location(7,6), King(Color.B))
     }
 
-    /*
-    Finds every piece that the player has then finds every move of every piece and temporarily moves it to its
-    end location to run check() and if no moves exist that can take the players king out of check the game ends
-    */
+    /**
+     * Finds every piece that the player has then finds every move of every piece and temporarily moves it to its
+     * end location to run check() and if no moves exist that can take the players king out of check the game ends
+     *
+     * @param turn Information on whose turn it is
+     * @return Boolean for if any legal moves can be made
+     */
     fun legalMoves(turn: Turn): Boolean {
         val pieceLocations = allLocations(turn)
         for (location in pieceLocations) {
@@ -46,10 +49,8 @@ class GameLogic(chessBoard: ChessBoard) {
 
         val kingLocation = kingsLocation(turn)
 
-        // king los like a queen
-        enemyMoves.addAll(losAsQueen(kingLocation, turn, enemyTurn))
-        // king los like a knight
-        enemyMoves.addAll(losAsKnight(kingLocation, turn, enemyTurn))
+        // if king sees a piece of opposite color, get all the moves that piece can make
+        enemyMoves.addAll(checkLineOfSight(kingLocation, turn, enemyTurn))
 
         // if king location in enemy moves return true
         for (move in enemyMoves) {
@@ -60,9 +61,9 @@ class GameLogic(chessBoard: ChessBoard) {
         return false
     }
 
-    private fun losAsQueen(kingLocation: Location, turn: Turn, enemyTurn: Turn): Set<ChessMove> {
+    private fun checkLineOfSight(kingLocation: Location, turn: Turn, enemyTurn: Turn): Set<ChessMove> {
         val enemyMoves = mutableSetOf<ChessMove>()
-        // check diagonals and rows/col as if the king was a queen
+        // general queen movement for LOS
         val queenDirections = listOf(
             Location(1, 1), Location(1, -1),
             Location(-1, 1), Location(-1, -1),
@@ -86,12 +87,13 @@ class GameLogic(chessBoard: ChessBoard) {
                 }
             }
         }
+        enemyMoves.addAll(checkKnightMovement(kingLocation, turn, enemyTurn))
         return enemyMoves
     }
 
-    private fun losAsKnight (kingLocation: Location, turn: Turn, enemyTurn: Turn): Set<ChessMove> {
+    private fun checkKnightMovement (kingLocation: Location, turn: Turn, enemyTurn: Turn): Set<ChessMove> {
         val enemyMoves = mutableSetOf<ChessMove>()
-        // check locations as if the king was a knight
+        // knight movement
         val knightDirections = listOf(
             Location(2, -1), Location(2, 1),
             Location(-2, -1), Location(-2, 1),
@@ -123,6 +125,12 @@ class GameLogic(chessBoard: ChessBoard) {
         return chessMoves
     }
 
+    /**
+     * Find the kings location of the current turn
+     *
+     * @param turn Information on whose turn it is
+     * @return Location(row,col) The location of the king
+     */
     private fun kingsLocation(turn: Turn): Location {
         for (row in ChessBoard.ROW_START..ChessBoard.ROW_END) {
             for (col in ChessBoard.COL_START..ChessBoard.COL_END) {
