@@ -14,7 +14,13 @@ class GameLogic(chessBoard: ChessBoard) {
         initKnights()
         initRooks()
         initBishops()
+        initQueens()
         chessBoard.render()
+    }
+
+    private fun initQueens() {
+        chessBoard.setPiece(Location(0,3), Queen(Color.W))
+        chessBoard.setPiece(Location(7,3), Queen(Color.B))
     }
 
     private fun initBishops() {
