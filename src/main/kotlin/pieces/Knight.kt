@@ -1,9 +1,9 @@
 package pieces
 
-import chess.ChessBoard
-import chess.ChessMove
-import chess.Location
-import chess.Turn
+import game_helpers.ChessBoard
+import game_helpers.ChessMove
+import game_helpers.Location
+import game_helpers.Turn
 
 class Knight(
     override var color: Color,

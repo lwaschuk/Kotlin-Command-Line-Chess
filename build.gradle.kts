@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    id("org.jetbrains.dokka") version "1.7.20"
     kotlin("jvm") version "1.7.10"
     application
 }
@@ -11,6 +12,14 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
 }
+
+buildscript {
+    dependencies {
+        classpath("org.jetbrains.dokka:dokka-gradle-plugin:1.7.20")
+    }
+}
+
+apply(plugin="org.jetbrains.dokka")
 
 dependencies {
     testImplementation(kotlin("test"))
@@ -36,11 +45,23 @@ tasks {
                 sourcesMain.output
         from(contents)
     }
+
     build {
-        dependsOn(fatJar) // Trigger fat jar creation during build
+        dependsOn(fatJar) // Create a .jar every build
+        dependsOn(dokkaHtml) // Create Doc's every build
     }
 }
 
+tasks.dokkaHtml.configure {
+    outputDirectory.set(buildDir.resolve("Documentation"))
+
+    dokkaSourceSets {
+        configureEach{
+            includeNonPublic.set(true)
+            reportUndocumented.set(true)
+        }
+    }
+}
 application {
     mainClass.set("MainKt")
 }

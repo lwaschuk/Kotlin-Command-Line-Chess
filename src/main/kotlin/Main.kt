@@ -1,7 +1,7 @@
-import chess.ChessBoard
-import chess.ChessMove
-import chess.GameLogic
-import chess.Turn
+import game_helpers.ChessBoard
+import game_helpers.ChessMove
+import game_helpers.GameLogic
+import game_helpers.Turn
 import kotlin.system.exitProcess
 
 fun main() {
@@ -49,7 +49,7 @@ fun main() {
 
             val startLocation = chessMove.startLocation()
             val possibleMoves = chessBoard.getPiece(startLocation).canMove(startLocation, chessBoard, turn)
-            println(ChessMove.convertSetLocation(possibleMoves))
+            println(ChessMove.convertSetOfLocations(possibleMoves))
 
             if (validMove) {
                 validMove = chessBoard.getPiece(startLocation).move(chessMove, chessBoard, turn).also {

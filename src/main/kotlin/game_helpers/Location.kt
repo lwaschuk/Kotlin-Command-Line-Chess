@@ -1,4 +1,4 @@
-package chess
+package game_helpers
 
 class Location(row: Int, col: Int) {
     private val location: Pair<Int, Int>
@@ -24,6 +24,10 @@ class Location(row: Int, col: Int) {
             return false
         }
         return row() == other.row() && column() == other.column()
+    }
+
+    override fun hashCode(): Int {
+        return location.hashCode()
     }
 
     operator fun plus(direction: Location): Location {
