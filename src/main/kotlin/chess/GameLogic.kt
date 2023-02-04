@@ -1,9 +1,6 @@
 package chess
 
-import pieces.Color
-import pieces.Pawn
-import pieces.PieceType
-import pieces.Rook
+import pieces.*
 
 class GameLogic(chessBoard: ChessBoard) {
     private var chessBoard: ChessBoard
@@ -15,7 +12,15 @@ class GameLogic(chessBoard: ChessBoard) {
     fun startGame() {
         initPawns()
         initRooks()
+        initKnights()
         chessBoard.render()
+    }
+
+    private fun initKnights(){
+        chessBoard.setPiece(Location(0,1), Knight(Color.W))
+        chessBoard.setPiece(Location(0,6), Knight(Color.W))
+        chessBoard.setPiece(Location(7,1), Knight(Color.B))
+        chessBoard.setPiece(Location(7,6), Knight(Color.B))
     }
 
     private fun initRooks(){
