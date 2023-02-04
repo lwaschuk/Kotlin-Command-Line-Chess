@@ -12,12 +12,20 @@ class GameLogic(chessBoard: ChessBoard) {
     fun startGame() {
         initChessPieces()
 //        testCheckStale()
+//        pawnPromotion()
         chessBoard.render()
     }
 
     private fun testCheckStale() {
         chessBoard.setPiece(Location(5,6), Rook(Color.W))
         chessBoard.setPiece(Location(6,3), Queen(Color.W))
+        chessBoard.setPiece(Location(0,2), King(Color.W))
+        chessBoard.setPiece(Location(7,6), King(Color.B))
+    }
+
+    private fun pawnPromotion() {
+        chessBoard.setPiece(Location(6,5), Pawn(Color.W))
+        chessBoard.setPiece(Location(1,3), Pawn(Color.B))
         chessBoard.setPiece(Location(0,2), King(Color.W))
         chessBoard.setPiece(Location(7,6), King(Color.B))
     }
@@ -143,7 +151,7 @@ class GameLogic(chessBoard: ChessBoard) {
         return Location(0,0)
     }
 
-    private fun tmpMove(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
+    fun tmpMove(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
         val startLocation = chessMove.startLocation()
         val endLocation = chessMove.endLocation()
         val startPiece = chessBoard.getPiece(startLocation)
