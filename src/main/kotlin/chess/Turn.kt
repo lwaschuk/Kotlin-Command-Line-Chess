@@ -2,9 +2,13 @@ package chess
 
 import pieces.Color
 
-class Turn {
-    private var p1Turn: Boolean = true
-    private var color: Color = Color.W
+class Turn(p1Turn: Boolean = true) {
+    private var p1Turn: Boolean
+    private var color: Color
+    init {
+        this.p1Turn = p1Turn
+        this.color = if (this.p1Turn) Color.W else Color.B
+    }
 
     fun getTurn(): Boolean{
         return this.p1Turn
