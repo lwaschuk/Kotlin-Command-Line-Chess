@@ -18,7 +18,8 @@ fun main() {
 
     while (true) {
         do {
-            var validMove = true
+            var validMove: Boolean
+            var inCheck: Boolean
             var validInput: Boolean
             var s: String
 
@@ -47,19 +48,20 @@ fun main() {
                 }
             }
 
-            val startLocation = chessMove.startLocation()
-            val possibleMoves = chessBoard.getPiece(startLocation).canMove(startLocation, chessBoard, turn)
-            println(ChessMove.convertSetOfLocations(possibleMoves))
-
-            if (validMove) {
-                validMove = chessBoard.getPiece(startLocation).move(chessMove, chessBoard, turn).also {
+            inCheck = gameLogic.tmpMove(chessMove, chessBoard, turn).also {
+                if (it) {
+                    println("Your in check, move your king...")
+                }
+            }
+            if ((validMove) && (!inCheck)) {
+                validMove = chessBoard.getPiece(chessMove.startLocation()).move(chessMove, chessBoard, turn).also {
                     if (!it) {
                         println("Not a possible chess move")
                     }
                 }
             }
 
-        } while (!validMove)
+        } while ((!validMove) || (inCheck))
 
         chessBoard.render()
         turn.nextTurn()
