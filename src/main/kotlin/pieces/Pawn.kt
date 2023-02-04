@@ -76,7 +76,6 @@ class Pawn(
     }
 
     override fun move(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
-//        if (chessMove.startLocation() in canMove(chessMove.startLocation(), chessBoard, turn)) return false
         val possibleMoves = canMove(chessMove.startLocation(), chessBoard, turn)
         for (move in possibleMoves) {
             if (move.value() == chessMove.endLocation().value()) {
