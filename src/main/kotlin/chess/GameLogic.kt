@@ -10,14 +10,22 @@ class GameLogic(chessBoard: ChessBoard) {
     }
 
     fun startGame() {
+        initChessPieces()
+        chessBoard.render()
+    }
+
+    private fun initChessPieces() {
         initPawns()
         initKnights()
         initRooks()
         initBishops()
         initQueens()
-        chessBoard.render()
+        initKings()
     }
-
+    private fun initKings() {
+        chessBoard.setPiece(Location(0,4), King(Color.W))
+        chessBoard.setPiece(Location(7,4), King(Color.B))
+    }
     private fun initQueens() {
         chessBoard.setPiece(Location(0,3), Queen(Color.W))
         chessBoard.setPiece(Location(7,3), Queen(Color.B))
