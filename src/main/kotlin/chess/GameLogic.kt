@@ -11,11 +11,18 @@ class GameLogic(chessBoard: ChessBoard) {
 
     fun startGame() {
         initPawns()
-        initRooks()
         initKnights()
+        initRooks()
+        initBishops()
         chessBoard.render()
     }
 
+    private fun initBishops() {
+        chessBoard.setPiece(Location(0,2), Bishop(Color.W))
+        chessBoard.setPiece(Location(0,5), Bishop(Color.W))
+        chessBoard.setPiece(Location(7,2), Bishop(Color.B))
+        chessBoard.setPiece(Location(7,5), Bishop(Color.B))
+    }
     private fun initKnights(){
         chessBoard.setPiece(Location(0,1), Knight(Color.W))
         chessBoard.setPiece(Location(0,6), Knight(Color.W))

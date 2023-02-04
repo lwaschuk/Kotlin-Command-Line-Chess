@@ -10,87 +10,46 @@ class Bishop(
 ) : IChessPiece {
     override val type: PieceType = PieceType.BISHOP
 
-    //    /*
-//    This function takes in the current row and column of the bishop and the chess board represented as a 2D array of Pieces.
-//    It then uses four nested while loops, one for each diagonal direction and it checks all the squares in that diagonal
-//    direction until it reaches the end of the board or finds an occupied square of the same color.
-//    If it finds an unoccupied square or a square occupied by an opponent, it adds it to the possible moves list and continues
-//    checking the next square in that diagonal direction
-//     */
     override fun canMove(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
         val possibleMoves = mutableSetOf<Location>()
 
-//        // Check squares diagonally to the left and up
-//        var r = row - 1
-//        var c = col - 1
-//        while (r >= 0 && c >= 0) {
-//            val square = board[r][c]
-//            if (square == null) {
-//                possibleMoves.add(Pair(r, c))
-//            } else if (square.color != color) {
-//                possibleMoves.add(Pair(r, c))
-//                break
-//            } else {
-//                break
-//            }
-//            r--
-//            c--
-//        }
-//
-//        // Check squares diagonally to the right and up
-//        r = row - 1
-//        c = col + 1
-//        while (r >= 0 && c <= 7) {
-//            val square = board[r][c]
-//            if (square == null) {
-//                possibleMoves.add(Pair(r, c))
-//            } else if (square.color != color) {
-//                possibleMoves.add(Pair(r, c))
-//                break
-//            } else {
-//                break
-//            }
-//            r--
-//            c++
-//        }
-//
-//        // Check squares diagonally to the left and down
-//        r = row + 1
-//        c = col - 1
-//        while (r <= 7 && c >= 0) {
-//            val square = board[r][c]
-//            if (square == null) {
-//                possibleMoves.add(Pair(r, c))
-//            } else if (square.color != color) {
-//                possibleMoves.add(Pair(r, c))
-//                break
-//            } else {
-//                break
-//            }
-//            r++
-//            c--
-//        }
-//
-//        // Check squares diagonally to the right and down
-//        r = row + 1
-//        c = col + 1
-//        while (r <= 7 && c <= 7) {
-//            val square = board[r][c]
-//            if (square == null) {
-//                possibleMoves.add(Pair(r, c))
-//            } else if (square.color != color) {
-//                possibleMoves.add(Pair(r, c))
-//                break
-//            } else {
-//                break
-//            }
-//            r++
-//            c++
-//        }
+        val directions = listOf(
+            Location(1, 1),
+            Location(1, -1),
+            Location(-1, 1),
+            Location(-1, -1)
+        )
+
+        for (direction in directions) {
+            var nextLocation = startLocation + direction
+            while (nextLocation.isValid(nextLocation)) {
+                val nextPiece = chessBoard.getPiece(nextLocation)
+                if (nextPiece.color == turn.getColor()) {
+                    break
+                }
+                else if (nextPiece.color == turn.enemyColor()) {
+                    possibleMoves.add(nextLocation)
+                    break
+                }
+                else if (nextPiece.color == Color.E) {
+                    possibleMoves.add(nextLocation)
+                    nextLocation += direction
+                }
+            }
+        }
         return possibleMoves
     }
 
     override fun move(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
+        val possibleMoves = canMove(chessMove.startLocation(), chessBoard, turn)
+
+        for (move in possibleMoves) {
+            if (chessMove.endLocation() == move) {
+                chessBoard.setPiece(chessMove.endLocation(), chessBoard.getPiece(chessMove.startLocation()))
+                chessBoard.setPiece(chessMove.startLocation(), EmptySpot())
+                return true
+            }
+        }
 
         return false
     }
