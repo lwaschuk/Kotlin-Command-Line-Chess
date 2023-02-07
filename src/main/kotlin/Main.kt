@@ -11,7 +11,7 @@ fun main() {
     val turn = Turn()
 
     // get names
-    println("Pawns-Only Chess")
+    println("CMD Line Chess")
 
     // start game
     gameLogic.startGame()
@@ -50,7 +50,7 @@ fun main() {
 
             inCheck = gameLogic.tmpMove(chessMove, chessBoard, turn).also {
                 if (it) {
-                    println("Your in check, move your king...")
+                    println("You are in check, move your king...")
                 }
             }
             if ((validMove) && (!inCheck)) {
