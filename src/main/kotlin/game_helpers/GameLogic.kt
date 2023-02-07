@@ -2,6 +2,11 @@ package game_helpers
 
 import pieces.*
 
+/**
+ * The class that is responsible for all the Game Logic. Checks for Check, Checkmate, Stalemate, Legal Moves.
+ *
+ * @param chessBoard the board the game will be ran on
+ */
 class GameLogic(chessBoard: ChessBoard) {
     private var chessBoard: ChessBoard
 
@@ -9,25 +14,15 @@ class GameLogic(chessBoard: ChessBoard) {
         this.chessBoard = chessBoard
     }
 
+    /**
+     * The public method to begin the game
+     *
+     * @param nothing 
+     * @return nothing
+     */
     fun startGame() {
         initChessPieces()
-//        testCheckStale()
-//        pawnPromotion()
         chessBoard.render()
-    }
-
-    private fun testCheckStale() {
-        chessBoard.setPiece(Location(5,6), Rook(Color.W))
-        chessBoard.setPiece(Location(6,3), Queen(Color.W))
-        chessBoard.setPiece(Location(0,2), King(Color.W))
-        chessBoard.setPiece(Location(7,6), King(Color.B))
-    }
-
-    private fun pawnPromotion() {
-        chessBoard.setPiece(Location(6,5), Pawn(Color.W))
-        chessBoard.setPiece(Location(1,3), Pawn(Color.B))
-        chessBoard.setPiece(Location(0,2), King(Color.W))
-        chessBoard.setPiece(Location(7,6), King(Color.B))
     }
 
     /**
@@ -51,6 +46,13 @@ class GameLogic(chessBoard: ChessBoard) {
         return true
     }
 
+    /**
+     * Checks if the king is in check, using turn check whose turn it is
+     *
+     * @param turn Information on whose turn it is
+     *
+     * @return Boolean stating if the king is in check
+     */
     fun check(turn: Turn): Boolean {
         val enemyMoves = mutableSetOf<ChessMove>()
         val enemyTurn = Turn(!turn.getTurn()) // FIX THIS LATER
@@ -69,6 +71,15 @@ class GameLogic(chessBoard: ChessBoard) {
         return false
     }
 
+    /**
+     * Checks what pieces of the opposite color the king can see
+     *
+     * @param kingLocation The location of the king
+     * @param turn Information on whose turn it is
+     * @param enemyTurn Information on the enemy (pc color etc..)
+     *
+     * @return Set<enemyMoves> -> the set of all legal moves the enemy can make that can attack the king
+     */
     private fun checkLineOfSight(kingLocation: Location, turn: Turn, enemyTurn: Turn): Set<ChessMove> {
         val enemyMoves = mutableSetOf<ChessMove>()
         // general queen movement for LOS
@@ -99,16 +110,25 @@ class GameLogic(chessBoard: ChessBoard) {
         return enemyMoves
     }
 
+    /**
+     * Helper function for checkLineOfSight that simulates knight movement
+     *
+     * @param kingLocation The location of the king
+     * @param turn Information on whose turn it is
+     * @param enemyTurn Information on the enemy (pc color etc..)
+     *
+     * @return Set<enemyMoves> -> the set of all legal moves the enemy can make that can attack the king
+     */
     private fun checkKnightMovement (kingLocation: Location, turn: Turn, enemyTurn: Turn): Set<ChessMove> {
         val enemyMoves = mutableSetOf<ChessMove>()
-        // knight movement
+        // general knight movement
         val knightDirections = listOf(
             Location(2, -1), Location(2, 1),
             Location(-2, -1), Location(-2, 1),
             Location(1, 2), Location(-1, 2),
             Location(1, -2), Location(-1, -2)
         )
-        // if the king sees a pc of opposite color, get the possibleMoves
+        // if the king sees a pc of opposite color, get the possibleMoves (of the knight)
         for (direction in knightDirections) {
             val nextLocation = kingLocation + direction
             if (nextLocation.isValid(nextLocation)) {
@@ -121,6 +141,13 @@ class GameLogic(chessBoard: ChessBoard) {
         return enemyMoves
     }
 
+    /**
+     * Helper function for legalMoves() that finds every move a particular piece on the board can make
+     *
+     * @param location The location of the piece we are interested in
+     * @param chessBoard The board
+     * @param turn Information on whose turn it is
+     */
     private fun findMoves(location: Location, chessBoard: ChessBoard, turn: Turn): Set<ChessMove> {
         val possibleMoves = mutableSetOf<Location>()
         val piece = chessBoard.getPiece(location)
@@ -151,6 +178,16 @@ class GameLogic(chessBoard: ChessBoard) {
         return Location(0,0)
     }
 
+    /**
+     * Helper for legalMoves() that moves a chess piece to check if there exists a move that will keep the
+     * king out of check
+     *
+     * @param chessMove Information and the Start & End Location of a move
+     * @param chessBoard The board
+     * @param turn Information on whose turn it is
+     *
+     * @return Boolean representing if the king is in check or not
+     */
     fun tmpMove(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
         val startLocation = chessMove.startLocation()
         val endLocation = chessMove.endLocation()
@@ -168,26 +205,45 @@ class GameLogic(chessBoard: ChessBoard) {
         return inCheck
     }
 
+    /**
+     * Gets every location of every piece for <turn>
+     *
+     * @param turn Information on whose turn it is
+     *
+     * @return Set<Location> containing the location for all the pieces owned by <turn>
+     */
     private fun allLocations(turn: Turn): Set<Location> {
-        val possibleMoves = mutableSetOf<Location>()
+        val locations = mutableSetOf<Location>()
         for (row in ChessBoard.ROW_START..ChessBoard.ROW_END) {
             for (col in ChessBoard.COL_START..ChessBoard.COL_END) {
                 val currentPiece = chessBoard.getPiece(Location(row, col))
                 if ((currentPiece !is EmptySpot) && currentPiece.color == turn.getColor()) {
                     val piece = Location(row, col)
-                    possibleMoves.add(piece)
+                    locations.add(piece)
                 }
             }
         }
-        return possibleMoves
+        return locations
     }
 
+    /**
+     * Check if a location on the chessBoard is <turns> color and not empty
+     *
+     * @param chessMove Information on the start location of the targeted piece
+     * @param turn Information on whose turn it is
+     */
     fun sourceCoordinateVerifier(chessMove: ChessMove, turn: Turn): Boolean {
         val startCoordinates = chessMove.startLocation()
         val piece = chessBoard.getPiece(startCoordinates)
         return piece.type != PieceType.EMPTY && piece.color == turn.getColor()
     }
 
+    /**
+     * Initialize all the chess pieces
+     *
+     * @param nothing
+     * @return nothing
+     */
     private fun initChessPieces() {
         initPawns()
         initKnights()
@@ -196,21 +252,48 @@ class GameLogic(chessBoard: ChessBoard) {
         initQueens()
         initKings()
     }
+
+    /**
+     * Initialize all the King pieces
+     *
+     * @param nothing
+     * @return nothing
+     */
     private fun initKings() {
         chessBoard.setPiece(Location(0,4), King(Color.W))
         chessBoard.setPiece(Location(7,4), King(Color.B))
     }
+
+    /**
+     * Initialize all the Queen pieces
+     *
+     * @param nothing
+     * @return nothing
+     */
     private fun initQueens() {
         chessBoard.setPiece(Location(0,3), Queen(Color.W))
         chessBoard.setPiece(Location(7,3), Queen(Color.B))
     }
 
+    /**
+     * Initialize all the Bishop pieces
+     *
+     * @param nothing
+     * @return nothing
+     */
     private fun initBishops() {
         chessBoard.setPiece(Location(0,2), Bishop(Color.W))
         chessBoard.setPiece(Location(0,5), Bishop(Color.W))
         chessBoard.setPiece(Location(7,2), Bishop(Color.B))
         chessBoard.setPiece(Location(7,5), Bishop(Color.B))
     }
+
+    /**
+     * Initialize all the Knight pieces
+     *
+     * @param nothing
+     * @return nothing
+     */
     private fun initKnights(){
         chessBoard.setPiece(Location(0,1), Knight(Color.W))
         chessBoard.setPiece(Location(0,6), Knight(Color.W))
@@ -218,6 +301,12 @@ class GameLogic(chessBoard: ChessBoard) {
         chessBoard.setPiece(Location(7,6), Knight(Color.B))
     }
 
+    /**
+     * Initialize all the Rook pieces
+     *
+     * @param nothing
+     * @return nothing
+     */
     private fun initRooks(){
         chessBoard.setPiece(Location(0, 0), Rook(Color.W))
         chessBoard.setPiece(Location(0, 7), Rook(Color.W))
@@ -225,6 +314,12 @@ class GameLogic(chessBoard: ChessBoard) {
         chessBoard.setPiece(Location(7, 7), Rook(Color.B))
     }
 
+    /**
+     * Initialize all the Pawn pieces
+     *
+     * @param nothing
+     * @return nothing
+     */
     private fun initPawns() {
         for (col in 0 until 8) {
             chessBoard.setPiece(Location(1, col), Pawn(Color.W))
