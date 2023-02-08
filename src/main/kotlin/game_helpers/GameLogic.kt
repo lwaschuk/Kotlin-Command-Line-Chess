@@ -17,7 +17,7 @@ class GameLogic(chessBoard: ChessBoard) {
     /**
      * The public method to begin the game
      *
-     * @param nothing 
+     * @param nothing
      * @return nothing
      */
     fun startGame() {
