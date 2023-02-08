@@ -11,7 +11,7 @@ fun main() {
     val turn = Turn()
 
     // get names
-    println("CMD Line Chess")
+    println("Kotlin Command Line Chess")
 
     // start game
     gameLogic.startGame()
