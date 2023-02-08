@@ -2,7 +2,19 @@ package pieces
 
 import game_helpers.Location
 
+/**
+ * Pawn Chess Piece
+ *
+ * @param color Who the piece belongs to
+ */
 class Pawn(color: Color, var canBeEnPassant: Boolean = false) : ChessPiece(color, PieceType.PAWN, directions()) {
+
+    /**
+     * Prints the unicode representation of the corresponding piece
+     *
+     * @param nothing
+     * @return nothing
+     */
     override fun print(): String {
         return if (this.color == Color.W){
             "\u2659"
@@ -11,6 +23,12 @@ class Pawn(color: Color, var canBeEnPassant: Boolean = false) : ChessPiece(color
         }
     }
     companion object {
+        /**
+         * The possible directions the piece can move in
+         *
+         * @param nothing
+         * @return nothing
+         */
         fun directions(): List<Location> {
             return listOf(
                 Location(1,0), Location(-1,0), // Up / down
