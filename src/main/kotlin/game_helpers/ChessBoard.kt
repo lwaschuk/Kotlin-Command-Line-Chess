@@ -8,7 +8,7 @@ import pieces.*
  * @param nothing
  */
 class ChessBoard {
-    private var chessBoard = Array(8) { Array<IChessPiece>(8) { EmptySpot() } }
+    private var chessBoard = Array(8) { Array<ChessPiece>(8) { EmptySpot() } }
 
     /**
      * Print the board to the console
@@ -21,7 +21,7 @@ class ChessBoard {
         for (row in ROW_END downTo ROW_START) {
             print("${row + 1} ")
             for (col in COL_START .. COL_END) {
-                if (this.chessBoard[row][col].type != PieceType.EMPTY) {
+                if (this.chessBoard[row][col].pieceType != PieceType.EMPTY) {
                     print("| ${this.chessBoard[row][col].print()} ")
                 } else {
                     print("|   ")
@@ -39,7 +39,7 @@ class ChessBoard {
      * @param coordinates The location of the piece we are interested in
      * @return The piece
      */
-    fun getPiece(coordinates: Location): IChessPiece {
+    fun getPiece(coordinates: Location): ChessPiece {
         return this.chessBoard[coordinates.row()][coordinates.column()]
     }
 
@@ -49,7 +49,7 @@ class ChessBoard {
      * @param coordinates The location of the piece we are interested in setting
      * @return nothing
      */
-    fun setPiece(location: Location, piece: IChessPiece) {
+    fun setPiece(location: Location, piece: ChessPiece) {
         this.chessBoard[location.row()][location.column()] = piece
     }
 

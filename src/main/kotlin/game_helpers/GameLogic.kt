@@ -151,7 +151,7 @@ class GameLogic(chessBoard: ChessBoard) {
     private fun findMoves(location: Location, chessBoard: ChessBoard, turn: Turn): Set<ChessMove> {
         val possibleMoves = mutableSetOf<Location>()
         val piece = chessBoard.getPiece(location)
-        possibleMoves.addAll(piece.canMove(location, chessBoard, turn))
+        possibleMoves.addAll(piece.possibleMoves(location, chessBoard, turn))
 
         val chessMoves = mutableSetOf<ChessMove>()
         for (end in possibleMoves) {
@@ -235,7 +235,7 @@ class GameLogic(chessBoard: ChessBoard) {
     fun sourceCoordinateVerifier(chessMove: ChessMove, turn: Turn): Boolean {
         val startCoordinates = chessMove.startLocation()
         val piece = chessBoard.getPiece(startCoordinates)
-        return piece.type != PieceType.EMPTY && piece.color == turn.getColor()
+        return piece.pieceType != PieceType.EMPTY && piece.color == turn.getColor()
     }
 
     /**
