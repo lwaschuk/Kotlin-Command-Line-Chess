@@ -5,9 +5,7 @@ import game_helpers.ChessMove
 import game_helpers.Location
 import game_helpers.Turn
 
-class Bishop(
-    override var color: Color,
-) : IChessPiece {
+class Bishop(override var color: Color, ) : IChessPiece {
     override val type: PieceType = PieceType.BISHOP
 
     override fun canMove(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {

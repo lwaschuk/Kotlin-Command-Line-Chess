@@ -5,10 +5,7 @@ import game_helpers.ChessMove
 import game_helpers.Location
 import game_helpers.Turn
 
-class Pawn(
-    override var color: Color,
-    var canBeEnPassant: Boolean = false,
-) : IChessPiece {
+class Pawn(override var color: Color, var canBeEnPassant: Boolean = false) : IChessPiece {
     override val type: PieceType = PieceType.PAWN
 
     override fun canMove(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {

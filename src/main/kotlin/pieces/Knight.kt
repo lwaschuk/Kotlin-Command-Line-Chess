@@ -5,9 +5,7 @@ import game_helpers.ChessMove
 import game_helpers.Location
 import game_helpers.Turn
 
-class Knight(
-    override var color: Color,
-) : IChessPiece {
+class Knight(override var color: Color, ) : IChessPiece {
     override val type: PieceType = PieceType.KNIGHT
 
     override fun canMove(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
