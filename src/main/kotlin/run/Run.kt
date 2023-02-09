@@ -52,7 +52,7 @@ class Run {
                     continue
                 }
 
-                if (s == "ksc") {
+                if (s == "00") {
                     if (gameLogic.kingsCastle(turn, true)) {
                         gameLogic.castle(turn, true)
                         break
@@ -62,7 +62,7 @@ class Run {
                         continue
                     }
                 }
-                else if (s == "qsc") {
+                else if (s == "000") {
                     if (gameLogic.queensCastle(turn, false)) {
                         gameLogic.castle(turn, false)
                         break
@@ -130,8 +130,8 @@ class Run {
      */
     private fun verifyInput(s: String): Boolean {
         if (s == "exit") return true
-        if (s == "ksc") return true
-        if (s == "qsc") return true
+        if (s == "00") return true
+        if (s == "000") return true
         if (s == "h") {help(); return true}
         val validLetters = 'a'..'h'
         val validNumbers = '1'..'8'
@@ -145,9 +145,18 @@ class Run {
     }
 
     private fun help() {
-        println("HELP:")
-        println("\tCastle King-side: 'ksc'\n\tCastle Queen-side: 'qsc'")
+        println("\nKotlin Command Line Help:")
+        println(">> Pawns: \n\t Can move forward one square at a time, or two squares if they are on their starting square. They capture pieces by \n\t moving one square diagonally.")
+        println("----->> Pawn En passant Capture: \n\t\t  A pawn has the option to capture an opponent's pawn that has moved two squares forward from its \n\t\t  starting position, as if it had only moved one square forward.")
+        println(">> Rooks: \n\t Can move horizontally or vertically, any number of squares.")
+        println(">> Knights: \n\t Move in an L-shape: two squares in one direction and then one square perpendicular to \n\tthat direction.")
+        println(">> Bishops: \n\t Move diagonally, any number of squares.")
+        println(">> Queen: \n\t Can move horizontally, vertically, or diagonally, any number of squares.")
+        println("----->> Queenside castle (move= '000'): \n\t\t  The King and Rook switch places, but only if neither piece has moved and the\n\t\t  squares between them are unoccupied.")
+        println(">> King: \n\t Can move one square in any direction.")
+        println("----->> Kingside castle (move= '00'): \n\t\t  The King and Rook switch places, but only if neither piece has moved and the\n\t\t  squares between them are unoccupied.\n")
     }
+
 
     /**
      * Helper function for runGame(), exits the game
