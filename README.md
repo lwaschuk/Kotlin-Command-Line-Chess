@@ -43,6 +43,15 @@ chmod +x gradlew
 ./gradlew run
 ```
 
+Or you can build and run the .jar locally:
+
+```bash
+chmod +x gradlew
+./gradlew build
+cd build/libs 
+java -jar Chess-1.0-SNAPSHOT-standalone.jar
+```
+
 ## How to Play
 
 The game is played in the terminal, and you will see the chess board on your screen. You can make moves by entering the 
