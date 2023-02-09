@@ -16,11 +16,13 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
     private var directions: List<Location>
     var color: Color
     var pieceType: PieceType
+    private var hasMoved: Boolean
 
     init {
         this.directions = directions
         this.color = color
         this.pieceType = pieceType
+        this.hasMoved = false
     }
 
     /**
@@ -65,12 +67,23 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
         val possibleMoves = possibleMoves(chessMove.startLocation(), chessBoard, turn)
         for (move in possibleMoves) {
             if (chessMove.endLocation() == move) {
-                chessBoard.setPiece(chessMove.endLocation(), chessBoard.getPiece(chessMove.startLocation()))
+                this.hasMoved = true
+                chessBoard.setPiece(chessMove.endLocation(), this)
                 chessBoard.setPiece(chessMove.startLocation(), EmptySpot())
                 return true
             }
         }
         return false
+    }
+
+    /**
+     * Public function to see if a piece has been moved yet
+     *
+     * @param nothing
+     * @return Boolean representing if the piece has moved or not
+     */
+    fun hasMoved(): Boolean {
+        return this.hasMoved
     }
 
     /**
@@ -90,39 +103,41 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
                 val behindEndLocation =
                     Location(chessMove.endLocation().row() - movement, chessMove.endLocation().column())
                 val behindEndPiece = chessBoard.getPiece(behindEndLocation)
-
+                this.hasMoved = true
                 return when {
+                    // promote pawn if it reaches last column for its color
                     (canPromote(chessMove,turn)) -> {
                         var newPieceString: String
                         do {
                             newPieceString = getInput()
                         } while (!verifyInput(newPieceString))
-
                         chessBoard.setPiece(chessMove.endLocation(), convertToPiece(newPieceString, turn))
                         chessBoard.setPiece(chessMove.startLocation(), EmptySpot())
                         true
                     }
-
+                    // en passant
                     ((behindEndPiece is Pawn) && (chessMove.startLocation()
                         .column() != chessMove.endLocation().column())
                             && (behindEndPiece.canBeEnPassant) && (behindEndPiece.color == turn.enemyColor())) -> {
 
-                        chessBoard.setPiece(chessMove.endLocation(), chessBoard.getPiece(chessMove.startLocation()))
+                        chessBoard.setPiece(chessMove.endLocation(), this)
                         chessBoard.setPiece(chessMove.startLocation(), EmptySpot())
                         chessBoard.setPiece(behindEndLocation, EmptySpot())
                         true
                     }
-
+                    // if moving two spaces, flag for en passant
                     (kotlin.math.abs(chessMove.startLocation().row() - chessMove.endLocation().row()) == 2
                             && chessBoard.getPiece(chessMove.startLocation()).pieceType == PieceType.PAWN) -> {
-                        val enPassant = Pawn(turn.getColor(), true)
-                        chessBoard.setPiece(chessMove.endLocation(), enPassant)
+                        if (this is Pawn) {
+                            this.canBeEnPassant = true
+                        }
+                        chessBoard.setPiece(chessMove.endLocation(), this)
                         chessBoard.setPiece(chessMove.startLocation(), EmptySpot())
                         true
                     }
-
+                    // normal move
                     else -> {
-                        chessBoard.setPiece(chessMove.endLocation(), chessBoard.getPiece(chessMove.startLocation()))
+                        chessBoard.setPiece(chessMove.endLocation(), this)
                         chessBoard.setPiece(chessMove.startLocation(), EmptySpot())
                         true
                     }
@@ -152,7 +167,6 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * Helper method for promote() gets user input for what piece type to make the promoted pawn
      *
      * @param nothing
-     *
      * @return String the input from the user
      */
     private fun getInput(): String {
@@ -164,7 +178,6 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * Helper method for getInput() verifies if the piece can be converted
      *
      * @param input The piece the player intends to promote the pawn to
-     *
      * @return String
      */
     private fun verifyInput(input: String): Boolean {
@@ -177,7 +190,6 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      *
      * @param input The piece the player intends to promote the pawn to
      * @param turn Information on whose turn it is
-     *
      * @return ChessPiece The Piece class of the new piece
      */
     private fun convertToPiece(input: String, turn: Turn): ChessPiece {
@@ -196,7 +208,6 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param startLocation The starting location
      * @param chessBoard The board
      * @param turn Information on whose turn it is
-     *
      * @return Set<Location> The set of all locations the piece can move
      */
     fun possibleMoves(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
@@ -223,7 +234,6 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param startLocation The starting location
      * @param chessBoard The board
      * @param turn Information on whose turn it is
-     *
      * @return Set<Location> The set of all locations the piece can move
      */
     private fun additiveMovement(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
@@ -254,7 +264,6 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param startLocation The starting location
      * @param chessBoard The board
      * @param turn Information on whose turn it is
-     *
      * @return Set<Location> The set of all locations the piece can move
      */
     private fun staticMovement(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
@@ -280,7 +289,6 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param startLocation The starting location
      * @param chessBoard The board
      * @param turn Information on whose turn it is
-     *
      * @return Set<Location> The set of all locations the piece can move
      */
     private fun pawnMovement(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
@@ -299,7 +307,6 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param startLocation The starting location
      * @param chessBoard The board
      * @param turn Information on whose turn it is
-     *
      * @return Set<Location> The set of all locations the piece can move
      */
     private fun getStraightMoves(chessBoard: ChessBoard, turn: Turn, movement: Int, startLocation: Location): Set<Location> {
@@ -328,11 +335,9 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
 
     /**
      * Helper method for possibleMoves(), find possible attacking moves for the PAWN
-     *
      * @param startLocation The starting location
      * @param chessBoard The board
      * @param turn Information on whose turn it is
-     *
      * @return Set<Location> The set of all locations the piece can move
      */
     private fun getAttackMoves(chessBoard: ChessBoard, turn: Turn, movement: Int, startLocation: Location): Set<Location> {

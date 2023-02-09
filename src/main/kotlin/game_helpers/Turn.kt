@@ -22,7 +22,7 @@ class Turn(p1Turn: Boolean = true) {
      * @param nothing
      * @return Boolean representing if it is player 1's turn
      */
-    fun getTurn(): Boolean{
+    fun getTurn(): Boolean {
         return this.p1Turn
     }
 
