@@ -1,6 +1,9 @@
 package game_helpers
 
 import pieces.*
+import java.util.Collections.min
+import kotlin.math.max
+import kotlin.math.min
 
 /**
  * The class that is responsible for all the Game Logic. Checks for Check, Checkmate, Stalemate, Legal Moves.
@@ -161,7 +164,7 @@ class GameLogic(chessBoard: ChessBoard) {
     }
 
     /**
-     * Find the kings location of the current turn
+     * Find the kings location for the current player
      *
      * @param turn Information on whose turn it is
      * @return Location(row,col) The location of the king
@@ -225,6 +228,85 @@ class GameLogic(chessBoard: ChessBoard) {
         }
         return locations
     }
+
+    /**
+     * Checks if a king-side castle is possible
+     *
+     * @param turn Information on whose turn it is
+     * @param kingside Kingside or Queenside castle
+     * @return Boolean representing if a king-side castle is possible
+     */
+    fun kingsCastle(turn: Turn, kingside: Boolean): Boolean {
+        val kingsLocation = Location(if (turn.getTurn()) 0 else 7, 4)
+        val rooksLocation = Location(if (turn.getTurn()) 0 else 7, if (kingside) 7 else 0)
+        val king = chessBoard.getPiece(kingsLocation)
+        val rook = chessBoard.getPiece(rooksLocation)
+
+        if ((!king.hasMoved()) && (!rook.hasMoved()) && (kingside) && (king is King) && (rook is Rook)
+            && (!pieceBetween(kingsLocation, rooksLocation))) {
+            return true
+        }
+        return false
+    }
+
+    /**
+     * Checks if a queen-side castle is possible
+     *
+     * @param turn Information on whose turn it is
+     * @param kingside Kingside or Queenside castle
+     * @return Boolean representing if a queen-side castle is possible
+     */
+    fun queensCastle(turn: Turn, kingside: Boolean): Boolean {
+        val kingsLocation = Location(if (turn.getTurn()) 0 else 7, 4)
+        val rooksLocation = Location(if (turn.getTurn()) 0 else 7, if (kingside) 7 else 0)
+        val king = chessBoard.getPiece(kingsLocation)
+        val rook = chessBoard.getPiece(rooksLocation)
+
+        if ((!king.hasMoved()) && (!rook.hasMoved()) && (!kingside) && (king is King) && (rook is Rook)
+            && (!pieceBetween(kingsLocation, rooksLocation))) {
+            return true
+        }
+        return false
+    }
+
+    /**
+     * Checks if there is a piece in between the king and the rook when attemping to castle
+     *
+     * @param kingLocation The location of the king
+     * @param rooksLocation The location of the rook
+     */
+    private fun pieceBetween(kingLocation: Location, rooksLocation: Location): Boolean {
+        for (col in min(kingLocation.column(), rooksLocation.column())+1 until max(kingLocation.column(), rooksLocation.column())) {
+            if (chessBoard.getPiece(Location(kingLocation.row(), col)).pieceType != PieceType.EMPTY){
+                return true
+            }
+        }
+        return false
+    }
+
+    /**
+     * After verifying the move expected from the player is a castling move, this function will actually move the pieces
+     *
+     * @param turn Information on whose turn it is
+     * @param kingside Kingside or Queenside castle
+     * @return nothing
+     */
+    fun castle(turn: Turn, kingside: Boolean) {
+        val kingsLocation = Location(if (turn.getTurn()) 0 else 7, 4)
+        val rooksLocation = Location(if (turn.getTurn()) 0 else 7, if (kingside) 7 else 0)
+        val kingsDestination = Location(if (turn.getTurn()) 0 else 7, if (kingside) 6 else 2)
+        val rooksDestination = Location(if (turn.getTurn()) 0 else 7, if (kingside) 5 else 3)
+        val king = chessBoard.getPiece(kingsLocation)
+        val rook = chessBoard.getPiece(rooksLocation)
+
+        // move king
+        chessBoard.setPiece(kingsDestination, king)
+        chessBoard.setPiece(kingsLocation, EmptySpot())
+        // move rook
+        chessBoard.setPiece(rooksDestination, rook)
+        chessBoard.setPiece(rooksLocation, EmptySpot())
+    }
+
 
     /**
      * Check if a location on the chessBoard is <turns> color and not empty

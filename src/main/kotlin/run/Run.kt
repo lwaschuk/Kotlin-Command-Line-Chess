@@ -33,8 +33,8 @@ class Run {
 
         while (true) {
             do {
-                var validMove: Boolean
-                var inCheck: Boolean
+                var validMove = false
+                var inCheck = false
                 var validInput: Boolean
                 var s: String
 
@@ -47,6 +47,31 @@ class Run {
                         }
                     }
                 } while (!validInput)
+
+                if (s == "h") {
+                    continue
+                }
+
+                if (s == "ksc") {
+                    if (gameLogic.kingsCastle(turn, true)) {
+                        gameLogic.castle(turn, true)
+                        break
+                    }
+                    else {
+                        println("Cannot Castle King-side")
+                        continue
+                    }
+                }
+                else if (s == "qsc") {
+                    if (gameLogic.queensCastle(turn, false)) {
+                        gameLogic.castle(turn, false)
+                        break
+                    }
+                    else {
+                        println("Cannot Castle Queen-side")
+                        continue
+                    }
+                }
 
                 val chessMove = ChessMove(s)
 
@@ -105,15 +130,23 @@ class Run {
      */
     private fun verifyInput(s: String): Boolean {
         if (s == "exit") return true
-
+        if (s == "ksc") return true
+        if (s == "qsc") return true
+        if (s == "h") {help(); return true}
         val validLetters = 'a'..'h'
         val validNumbers = '1'..'8'
 
         if (s.length != 4) return false
+
         if (s[0] !in validLetters || s[2] !in validLetters) return false
         if (s[1] !in validNumbers || s[3] !in validNumbers) return false
 
         return true
+    }
+
+    private fun help() {
+        println("HELP:")
+        println("\tCastle King-side: 'ksc'\n\tCastle Queen-side: 'qsc'")
     }
 
     /**
@@ -136,10 +169,10 @@ class Run {
      */
     private fun getInput(p1Turn: Boolean): String {
         if (p1Turn) {
-            print("White's turn:\n> ")
+            print("White's turn ('h' for help):\n> ")
         }
         if (!p1Turn) {
-            print("Black's turn:\n> ")
+            print("Black's turn ('h' for help):\n> ")
         }
         return readln()
     }
