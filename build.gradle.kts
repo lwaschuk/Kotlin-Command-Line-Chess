@@ -34,7 +34,7 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks {
-    val fatJar = register<Jar>("fatJar") {
+    val jar = register<Jar>("Fat Jar") {
         dependsOn.addAll(listOf("compileJava", "compileKotlin", "processResources")) // We need this for Gradle optimization to work
         archiveClassifier.set("standalone") // Naming the jar
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
@@ -47,10 +47,16 @@ tasks {
     }
 
     build {
-        dependsOn(fatJar) // Create a .jar every build
+        dependsOn(jar) // Create a .jar every build
         dependsOn(dokkaHtml) // Create Doc's every build
     }
 }
+
+tasks.getByName<JavaExec>("run") {
+    standardInput = System.`in`
+}
+
+
 
 tasks.dokkaHtml.configure {
     outputDirectory.set(buildDir.resolve("Documentation"))
@@ -58,7 +64,6 @@ tasks.dokkaHtml.configure {
     dokkaSourceSets {
         configureEach{
             includeNonPublic.set(true)
-            reportUndocumented.set(true)
         }
     }
 }
