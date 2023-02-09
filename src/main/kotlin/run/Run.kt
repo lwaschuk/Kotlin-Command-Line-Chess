@@ -157,7 +157,6 @@ class Run {
         println("----->> Kingside castle (move= '00'): \n\t\t  The King and Rook switch places, but only if neither piece has moved and the\n\t\t  squares between them are unoccupied.\n")
     }
 
-
     /**
      * Helper function for runGame(), exits the game
      *
