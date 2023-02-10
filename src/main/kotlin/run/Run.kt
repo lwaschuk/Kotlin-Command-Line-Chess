@@ -12,7 +12,7 @@ import kotlin.system.exitProcess
  * @param nothing
  */
 class Run {
-
+    private val logger = Logger(this.javaClass.name)
     /**
      * The Game Loop
      *
@@ -20,19 +20,18 @@ class Run {
      * @return nothing
      */
     fun runGame(){
+        logger.debug("Run Game Started")
         // init
         val chessBoard = ChessBoard()
         val gameLogic = GameLogic(chessBoard)
         val turn = Turn()
 
-        // get names
         println("Kotlin Command Line Chess")
-
-        // start game
         gameLogic.startGame()
 
         while (true) {
             do {
+                logger.debug("Current turn: ${turn.colorToString()}")
                 var validMove = false
                 var inCheck = false
                 var validInput: Boolean
@@ -44,6 +43,7 @@ class Run {
                     validInput = verifyInput(s).also {
                         if (!it) {
                             println("Invalid Input")
+                            logger.warn("$s cannot be verified")
                         }
                     }
                 } while (!validInput)
@@ -53,27 +53,33 @@ class Run {
                 }
 
                 if (s == "00") {
+                    logger.debug("${turn.colorToString()} wants to castle Kingside")
                     if (gameLogic.kingsCastle(turn, true)) {
                         gameLogic.castle(turn, true)
                         break
                     }
                     else {
                         println("Cannot Castle King-side")
+                        logger.warn("${turn.colorToString()} cannot castle Kingside")
                         continue
                     }
                 }
                 else if (s == "000") {
+                    logger.debug("${turn.colorToString()} wants to castle Queenside")
                     if (gameLogic.queensCastle(turn, false)) {
                         gameLogic.castle(turn, false)
                         break
                     }
                     else {
                         println("Cannot Castle Queen-side")
+                        logger.warn("${turn.colorToString()} cannot castle Queenside")
                         continue
                     }
                 }
 
                 val chessMove = ChessMove(s)
+                logger.debug("Chessmove entered and verified: ${Logger.convertSetOfLocations(
+                    setOf(chessMove.startLocation(), chessMove.endLocation()))}")
 
                 if (exit(s)) {
                     bye()
@@ -85,36 +91,47 @@ class Run {
                             "No ${turn.colorToString()} " +
                                     "piece at ${s[0]}${s[1]}"
                         )
+                        logger.warn("There is no ${turn.colorToString()} piece at " +
+                                "${Logger.convertSetOfLocations(setOf(chessMove.startLocation()))}")
                     }
                 }
 
                 inCheck = gameLogic.tmpMove(chessMove, chessBoard, turn).also {
                     if (it) {
                         println("You are in check, move your king...")
+                        logger.warn("${turn.colorToString()} king is in check")
                     }
                 }
                 if ((validMove) && (!inCheck)) {
                     validMove = chessBoard.getPiece(chessMove.startLocation()).move(chessMove, chessBoard, turn).also {
                         if (!it) {
+                            logger.warn("Cannot make the chess move ${Logger.convertSetOfLocations(
+                                    setOf(chessMove.startLocation(), chessMove.endLocation()))}")
                             println("Not a possible chess move")
                         }
                     }
                 }
 
             } while ((!validMove) || (inCheck))
-
+            logger.debug("Valid move made and the king is not in check")
             chessBoard.render()
+
+            logger.debug("Changing turn...")
             turn.nextTurn()
             if (gameLogic.check(turn)) {
+                logger.debug("Checking if the ${turn.colorToString()} player is in check")
                 if (gameLogic.legalMoves(turn)) {
+                    logger.warn("${turn.colorToString()} has no legal moves")
                     println("CHECKMATE!")
                     bye()
                 }
                 else {
+                    logger.warn("${turn.colorToString()} is in check")
                     println("CHECK!")
                 }
             }
             if (gameLogic.legalMoves(turn)) {
+                logger.warn("${turn.colorToString()} has no legal moves that wont put the player in check")
                 println("STALEMATE!")
                 bye()
             }

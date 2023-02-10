@@ -1,5 +1,7 @@
 package game_helpers
 
+import run.Logger
+
 /**
  * A class that contains the Start Location and the End Location
  *
@@ -51,25 +53,5 @@ class ChessMove {
      */
     fun endLocation(): Location {
         return this.chessMove.second
-    }
-
-    companion object {
-        /**
-         * A method to convert a set of chess moves from how it is stored ((0,1),(0,3))
-         * to a human-readable representation ((a,2),(a,4))
-         *
-         * @param input the set of chess moves to convert
-         *
-         * @return the set of moves in a human-readable representation
-         */
-        fun convertSetOfLocations(input: Set<Location>): Set<Pair<Char, Char>> {
-            val newSet = mutableSetOf<Pair<Char, Char>>()
-            for (location in input) {
-                val letter = location.column() + 'a'.code
-                val number = location.row() + '1'.code
-                newSet.add(Pair(letter.toChar(), number.toChar()))
-            }
-            return newSet
-        }
     }
 }

@@ -4,6 +4,8 @@ import game_helpers.ChessBoard
 import game_helpers.ChessMove
 import game_helpers.Location
 import game_helpers.Turn
+import run.Logger
+import kotlin.math.log
 
 /**
  * The class all chess pieces must be created from
@@ -13,6 +15,7 @@ import game_helpers.Turn
  * @param directions all the possible directions this piece can move
  */
 abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<Location>) {
+    private val logger = Logger(this.javaClass.name)
     private var directions: List<Location>
     var color: Color
     var pieceType: PieceType
@@ -158,6 +161,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
     private fun canPromote(chessMove: ChessMove, turn: Turn): Boolean {
         val endRow = if (turn.getColor() == Color.W) ChessBoard.ROW_END else ChessBoard.ROW_START
         if (chessMove.endLocation().row() == endRow) {
+            logger.debug("${turn.colorToString()} pawn can promote!")
             return true
         }
         return false
@@ -224,7 +228,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
                 println("ERROR: Piece type cannot be found...")
             }
         }
-
+        logger.debug("All Moves for piece @ location ${Logger.convertLocation(startLocation)}: ${Logger.convertSetOfLocations(possibleMoves)}")
         return possibleMoves
     }
 
