@@ -49,7 +49,7 @@ class LocationTest {
         val result = locationOne + locationTwo
         assertEquals(result.value(), Pair(3,3))
     }
-    
+
     companion object {
         // Get the logback logging context
         private val loggerContext = LoggerFactory.getILoggerFactory() as LoggerContext

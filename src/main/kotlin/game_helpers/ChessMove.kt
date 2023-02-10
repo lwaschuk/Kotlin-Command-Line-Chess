@@ -1,7 +1,5 @@
 package game_helpers
 
-import run.Logger
-
 /**
  * A class that contains the Start Location and the End Location
  *
