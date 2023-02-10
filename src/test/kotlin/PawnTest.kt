@@ -1,5 +1,3 @@
-package Unit
-
 class PawnTest {
 
 
