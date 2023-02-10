@@ -26,10 +26,19 @@ dependencies {
     implementation("net.logstash.logback:logstash-logback-encoder:7.2") // ?
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
     implementation("ch.qos.logback:logback-classic:1.4.4")
+
+    testImplementation(kotlin("test"))
+    testImplementation("io.mockk:mockk:1.13.2")
+    testImplementation("org.junit-pioneer:junit-pioneer:1.7.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.1") // for parameterized tests
 }
 
 tasks.test {
     useJUnitPlatform()
+    testLogging {
+        events("passed","failed")
+        showStackTraces = true
+    }
 }
 
 tasks.withType<KotlinCompile> {
