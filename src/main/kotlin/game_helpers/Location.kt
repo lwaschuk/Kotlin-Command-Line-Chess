@@ -55,9 +55,9 @@ class Location(row: Int, col: Int) {
      * @param location the location of the move we want to make
      * @return Boolean representing if it is a valid move or not
      */
-    fun isValid(location: Location): Boolean {
-        return location.row() in ChessBoard.ROW_START..ChessBoard.ROW_END
-                && location.column() in ChessBoard.COL_START..ChessBoard.COL_END
+    fun isValid(): Boolean {
+        return this.row() in ChessBoard.ROW_START..ChessBoard.ROW_END
+                && this.column() in ChessBoard.COL_START..ChessBoard.COL_END
     }
 
     override fun equals(other: Any?): Boolean {

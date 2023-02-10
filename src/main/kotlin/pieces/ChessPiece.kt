@@ -5,7 +5,6 @@ import game_helpers.ChessMove
 import game_helpers.Location
 import game_helpers.Turn
 import run.Logger
-import kotlin.math.log
 
 /**
  * The class all chess pieces must be created from
@@ -244,7 +243,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
         val possibleMoves = mutableSetOf<Location>()
         for (direction in directions) {
             var nextLocation = startLocation + direction
-            while (nextLocation.isValid(nextLocation)) {
+            while (nextLocation.isValid()) {
                 val nextPiece = chessBoard.getPiece(nextLocation)
                 if (nextPiece.color == turn.getColor()) {
                     break
@@ -274,7 +273,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
         val possibleMoves = mutableSetOf<Location>()
         for (direction in directions) {
             val nextLocation = startLocation + direction
-            if (nextLocation.isValid(nextLocation)) {
+            if (nextLocation.isValid()) {
                 val nextPiece = chessBoard.getPiece(nextLocation)
                 if (nextPiece.color == turn.enemyColor()) {
                     possibleMoves.add(nextLocation)
@@ -327,7 +326,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
 
         for (direction in straightDirections) {
             val nextLocation = startLocation + direction
-            if (nextLocation.isValid(nextLocation)) {
+            if (nextLocation.isValid()) {
                 val nextPiece = chessBoard.getPiece(nextLocation)
                 if (nextPiece is EmptySpot) {
                     possibleMoves.add(nextLocation)
@@ -354,7 +353,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
 
         for (direction in attackDirections) {
             val nextLocation = startLocation + direction
-            if (nextLocation.isValid(nextLocation)) {
+            if (nextLocation.isValid()) {
                 val nextPiece = chessBoard.getPiece(nextLocation)
                 if ((nextPiece !is EmptySpot) && (nextPiece.color == turn.enemyColor())) {
                     possibleMoves.add(nextLocation)

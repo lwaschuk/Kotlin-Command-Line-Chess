@@ -2,7 +2,6 @@ package game_helpers
 
 import pieces.*
 import run.Logger
-import java.util.Collections.min
 import kotlin.math.max
 import kotlin.math.min
 
@@ -102,7 +101,7 @@ class GameLogic(chessBoard: ChessBoard) {
         // if the king sees a pc of opposite color, get the possibleMoves
         for (direction in queenDirections) {
             var nextLocation = kingLocation + direction
-            while (nextLocation.isValid(nextLocation)) {
+            while (nextLocation.isValid()) {
                 val nextPiece = chessBoard.getPiece(nextLocation)
                 if (nextPiece.color == turn.getColor()) {
                     break
@@ -141,7 +140,7 @@ class GameLogic(chessBoard: ChessBoard) {
         // if the king sees a pc of opposite color, get the possibleMoves (of the knight)
         for (direction in knightDirections) {
             val nextLocation = kingLocation + direction
-            if (nextLocation.isValid(nextLocation)) {
+            if (nextLocation.isValid()) {
                 val nextPiece = chessBoard.getPiece(nextLocation)
                 if (nextPiece.color == turn.enemyColor()) {
                     enemyMoves.addAll(findMoves(nextLocation, chessBoard, enemyTurn))
