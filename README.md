@@ -109,6 +109,11 @@ The king and rook can perform a special move called castling. In castling, the k
 * There cannot be any pieces between the king and rook
 * The king cannot be in check, nor can the squares the king moves over or to be under attack by opposing pieces.
 
+
+## Testing
+
+I did basic movement tests, there is no value to make more for a command line game of chess... when chess.com exists! 
+
 ## Conclusion
 
 Kotlin Chess Game is a fun and challenging way to play chess on your terminal with a friend. Whether you are an experienced player or 
