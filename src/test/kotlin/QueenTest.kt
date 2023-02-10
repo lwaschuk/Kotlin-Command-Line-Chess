@@ -7,15 +7,12 @@ import game_helpers.Turn
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
-import pieces.ChessPiece
-import pieces.Color
-import pieces.King
-import pieces.Pawn
+import pieces.*
 import run.Logger
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-class KingTest {
+class QueenTest {
     // Get the logback logging context
     private val loggerContext = LoggerFactory.getILoggerFactory() as LoggerContext
     private lateinit var piece: ChessPiece
@@ -38,20 +35,24 @@ class KingTest {
     fun setup() {
         loggerContext.getLogger("root").level = Level.OFF
         startLocation = Location(3,3)
-        piece = King(Color.W)
+        piece = Queen(Color.W)
         emptyBoard = ChessBoard()
         enemiesBoard = ChessBoard()
         friendlyBoard = ChessBoard()
         turn = Turn(true) // white
+
         emptyBoard.setPiece(startLocation, piece)
+
         enemiesBoard.setPiece(startLocation, piece)
         for (location in directPieceLocations) {
             enemiesBoard.setPiece(location, Pawn(Color.B))
         }
+
         friendlyBoard.setPiece(startLocation, piece)
         for (location in directPieceLocations) {
             friendlyBoard.setPiece(location, Pawn(Color.W))
         }
+
         emptyMoves = piece.possibleMoves(startLocation, emptyBoard, turn)
         enemyMoves = piece.possibleMoves(startLocation, enemiesBoard, turn)
         friendlyMoves = piece.possibleMoves(startLocation, friendlyBoard, turn)
@@ -196,9 +197,9 @@ class KingTest {
     @Test
     fun `move two spaces`() {
         val endLocation = Location(3,5)
-        assertFalse(emptyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by EMPTY spots: " +
+        assertTrue(emptyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by EMPTY spots: " +
                 "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
-        assertFalse(piece.move(ChessMove(startLocation, endLocation), emptyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by EMPTY spots: " +
+        assertTrue(piece.move(ChessMove(startLocation, endLocation), emptyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by EMPTY spots: " +
                 "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
         assertFalse(enemyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by ENEMY pieces: " +
                 "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
