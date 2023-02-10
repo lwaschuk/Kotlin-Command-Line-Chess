@@ -23,6 +23,9 @@ apply(plugin="org.jetbrains.dokka")
 
 dependencies {
     testImplementation(kotlin("test"))
+    implementation("net.logstash.logback:logstash-logback-encoder:7.2") // ?
+    implementation("io.github.microutils:kotlin-logging-jvm:3.0.4")
+    implementation("ch.qos.logback:logback-classic:1.4.4")
 }
 
 tasks.test {

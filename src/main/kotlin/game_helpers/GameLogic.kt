@@ -1,6 +1,7 @@
 package game_helpers
 
 import pieces.*
+import run.Logger
 import java.util.Collections.min
 import kotlin.math.max
 import kotlin.math.min
@@ -11,6 +12,7 @@ import kotlin.math.min
  * @param chessBoard the board the game will be ran on
  */
 class GameLogic(chessBoard: ChessBoard) {
+    private val logger = Logger(this.javaClass.name)
     private var chessBoard: ChessBoard
 
     init {
@@ -24,6 +26,8 @@ class GameLogic(chessBoard: ChessBoard) {
      * @return nothing
      */
     fun startGame() {
+        logger.debug("Run Game Started")
+        logger.debug("Init all pieces")
         initChessPieces()
         chessBoard.render()
     }
@@ -36,7 +40,9 @@ class GameLogic(chessBoard: ChessBoard) {
      * @return Boolean for if any legal moves can be made
      */
     fun legalMoves(turn: Turn): Boolean {
+        logger.debug("Legal Moves Started, Turn is ${turn.colorToString()}")
         val pieceLocations = allLocations(turn)
+        logger.debug("All Piece location of ${turn.colorToString()}: ${Logger.convertSetOfLocations(pieceLocations)}")
         for (location in pieceLocations) {
             val allMoves = findMoves(location, chessBoard, turn)
             for (move in allMoves) {
@@ -68,6 +74,7 @@ class GameLogic(chessBoard: ChessBoard) {
         // if king location in enemy moves return true
         for (move in enemyMoves) {
             if (kingLocation == move.endLocation()) {
+                logger.warn("${turn.colorToString()} King is being attacked on ${Logger.convertLocation(kingLocation)}")
                 return true
             }
         }
@@ -196,12 +203,12 @@ class GameLogic(chessBoard: ChessBoard) {
         val endLocation = chessMove.endLocation()
         val startPiece = chessBoard.getPiece(startLocation)
         val tmpPiece = chessBoard.getPiece(endLocation)
-
+        logger.debug("Temporarily moving piece from ${Logger.convertLocation(startLocation)} to ${Logger.convertLocation(endLocation)}")
         chessBoard.setPiece(endLocation, startPiece)
         chessBoard.setPiece(startLocation, EmptySpot())
 
         val inCheck = check(turn)
-
+        logger.warn("${turn.colorToString()} in check: $inCheck")
         chessBoard.setPiece(startLocation, startPiece)
         chessBoard.setPiece(endLocation, tmpPiece)
 

@@ -1,5 +1,7 @@
 package game_helpers
 
+import run.Logger
+
 /**
  * A Location on the chess board
  *
@@ -7,10 +9,14 @@ package game_helpers
  * @param col The column
  */
 class Location(row: Int, col: Int) {
+    private val logger = Logger(this.javaClass.name)
+
     private val location: Pair<Int, Int>
 
     init {
+        logger.trace("Creating new Location")
         this.location = Pair(row, col)
+        logger.trace("Created Location: ${this.location}")
     }
 
     /**
@@ -68,6 +74,4 @@ class Location(row: Int, col: Int) {
     operator fun plus(direction: Location): Location {
         return Location(row() + direction.row(), column() + direction.column())
     }
-
-
 }

@@ -1,6 +1,7 @@
 package game_helpers
 
 import pieces.Color
+import run.Logger
 
 /**
  * Information for whose turn it is
@@ -8,12 +9,15 @@ import pieces.Color
  * @param p1Turn is it player ones turn
  */
 class Turn(p1Turn: Boolean = true) {
+    private val logger = Logger(this.javaClass.name)
     private var p1Turn: Boolean
     private var color: Color
 
     init {
+        logger.debug("Creating Turn")
         this.p1Turn = p1Turn
         this.color = if (this.p1Turn) Color.W else Color.B
+        logger.debug("Turn created starting on ${this.color}")
     }
 
     /**
@@ -69,6 +73,7 @@ class Turn(p1Turn: Boolean = true) {
      * @return nothing
      */
     fun nextTurn() {
+        logger.debug("Changing Turn")
         this.p1Turn = !p1Turn
         this.color = if (this.p1Turn) Color.W else Color.B
     }

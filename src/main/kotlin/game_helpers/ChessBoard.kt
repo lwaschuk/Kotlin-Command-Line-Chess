@@ -1,6 +1,7 @@
 package game_helpers
 
 import pieces.*
+import run.Logger
 
 /**
  * A chessboard class that contains public methods to get/set a piece on the board, as well as render the board
@@ -8,6 +9,7 @@ import pieces.*
  * @param nothing
  */
 class ChessBoard {
+    private val logger = Logger(this.javaClass.name)
     private var chessBoard = Array(8) { Array<ChessPiece>(8) { EmptySpot() } }
 
     /**
