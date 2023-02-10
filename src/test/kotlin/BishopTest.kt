@@ -210,4 +210,140 @@ class BishopTest {
         assertFalse(piece.move(ChessMove(startLocation, endLocation), friendlyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by friendly pieces: " +
                 "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
     }
+
+    @Test
+    fun `move like a knight up left`() {
+        val endLocation = Location(5,2)
+        assertFalse(emptyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), emptyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(enemyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by ENEMY pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), enemiesBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by enemy pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(friendlyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by FRIENDLY pieces:: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), friendlyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by friendly pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+    }
+
+    @Test
+    fun `move like a knight up right`() {
+        val endLocation = Location(5,4)
+        assertFalse(emptyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), emptyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(enemyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by ENEMY pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), enemiesBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by enemy pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(friendlyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by FRIENDLY pieces:: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), friendlyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by friendly pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+    }
+
+    @Test
+    fun `move like a knight down right`() {
+        val endLocation = Location(1,4)
+        assertFalse(emptyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), emptyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(enemyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by ENEMY pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), enemiesBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by enemy pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(friendlyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by FRIENDLY pieces:: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), friendlyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by friendly pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+    }
+
+    @Test
+    fun `move like a knight down left`() {
+        val endLocation = Location(1,2)
+        assertFalse(emptyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), emptyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(enemyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by ENEMY pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), enemiesBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by enemy pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(friendlyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by FRIENDLY pieces:: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), friendlyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by friendly pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+    }
+
+    @Test
+    fun `move like a knight left up`() {
+        val endLocation = Location(4,1)
+        assertFalse(emptyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), emptyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(enemyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by ENEMY pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), enemiesBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by enemy pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(friendlyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by FRIENDLY pieces:: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), friendlyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by friendly pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+    }
+
+    @Test
+    fun `move like a knight left down`() {
+        val endLocation = Location(2,5)
+        assertFalse(emptyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), emptyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(enemyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by ENEMY pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), enemiesBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by enemy pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(friendlyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by FRIENDLY pieces:: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), friendlyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by friendly pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+    }
+
+    @Test
+    fun `move like a knight right up`() {
+        val endLocation = Location(4,5)
+        assertFalse(emptyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), emptyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(enemyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by ENEMY pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), enemiesBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by enemy pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(friendlyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by FRIENDLY pieces:: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), friendlyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by friendly pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+    }
+
+    @Test
+    fun `move like a knight right down`() {
+        val endLocation = Location(2,5)
+        assertFalse(emptyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), emptyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by EMPTY spots: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(enemyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by ENEMY pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), enemiesBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by enemy pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(friendlyMoves.contains(endLocation), "${piece.pieceType} did not have a possible move to the expected position when surrounded by FRIENDLY pieces:: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+        assertFalse(piece.move(ChessMove(startLocation, endLocation), friendlyBoard, turn), "${piece.pieceType} failed to move to the expected position when surrounded by friendly pieces: " +
+                "START: ${Logger.convertLocation(startLocation)} -> END: ${Logger.convertLocation(endLocation)}")
+    }
 }
