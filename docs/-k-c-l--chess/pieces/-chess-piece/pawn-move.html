@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>pawnMove</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../../../index.html">
+                    <span>KCL-Chess</span>
+            </a>
+    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="KCL-Chess::pieces/ChessPiece/pawnMove/#game_helpers.ChessMove#game_helpers.ChessBoard#game_helpers.Turn/PointingToDeclaration//769193423">
+  <div class="breadcrumbs"><a href="../../../index.html">KCL-Chess</a><span class="delimiter">/</span><a href="../index.html">pieces</a><span class="delimiter">/</span><a href="index.html">ChessPiece</a><span class="delimiter">/</span><span class="current">pawnMove</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>pawn</span><wbr></wbr><span><span>Move</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="pawn-move.html"><span class="token function">pawnMove</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">chessMove<span class="token operator">: </span><a href="../../game_helpers/-chess-move/index.html">ChessMove</a><span class="token punctuation">, </span></span><span class="parameter ">chessBoard<span class="token operator">: </span><a href="../../game_helpers/-chess-board/index.html">ChessBoard</a><span class="token punctuation">, </span></span><span class="parameter ">turn<span class="token operator">: </span><a href="../../game_helpers/-turn/index.html">Turn</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><p class="paragraph">Helper method for move() finds all the possible moves a piece that is a pawn can make</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">Boolean Whether the piece can move</p></span><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">Lukas Waschuk</p></span><h4 class="">Parameters</h4><div data-togglable="Parameters"><div class="table" data-togglable="Parameters"><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span>chess</span><wbr></wbr><span><span>Move</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">The move the player intends on making</p></div></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span>chess</span><wbr></wbr><span><span>Board</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">The board</p></div></div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="main-subrow keyValue WithExtraAttributes"><div class=""><span class="inline-flex"><div><u><span><span>turn</span></span></u></div></span></div><div><div class="title"><div data-togglable="Parameters"><p class="paragraph">information on whose turn it is</p></div></div></div></div></div></div></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
