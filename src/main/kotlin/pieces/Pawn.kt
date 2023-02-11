@@ -12,8 +12,7 @@ class Pawn(color: Color, var canBeEnPassant: Boolean = false) : ChessPiece(color
     /**
      * Prints the unicode representation of the corresponding piece
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     override fun print(): String {
         return if (this.color == Color.W){
@@ -26,8 +25,7 @@ class Pawn(color: Color, var canBeEnPassant: Boolean = false) : ChessPiece(color
         /**
          * The possible directions the piece can move in
          *
-         * @param nothing
-         * @return nothing
+         * @author Lukas Waschuk
          */
         fun directions(): List<Location> {
             return listOf(

@@ -6,7 +6,8 @@ import run.Logger
 /**
  * Information for whose turn it is
  *
- * @param p1Turn is it player ones turn
+ * @param p1Turn is it player ones turn (optional)
+ * @author Lukas Waschuk
  */
 class Turn(p1Turn: Boolean = true) {
     private val logger = Logger(this.javaClass.name)
@@ -23,8 +24,8 @@ class Turn(p1Turn: Boolean = true) {
     /**
      * Public method to see if it is player 1's turn
      *
-     * @param nothing
      * @return Boolean representing if it is player 1's turn
+     * @author Lukas Waschuk
      */
     fun getTurn(): Boolean {
         return this.p1Turn
@@ -33,8 +34,8 @@ class Turn(p1Turn: Boolean = true) {
     /**
      * Public method to get the player's color
      *
-     * @param nothing
      * @return Color Either W for p1, B for p2
+     * @author Lukas Waschuk
      */
     fun getColor(): Color {
         return this.color
@@ -43,8 +44,8 @@ class Turn(p1Turn: Boolean = true) {
     /**
      * Public method to get the enemy player's color
      *
-     * @param nothing
      * @return Color Either W for p1, B for p2
+     * @author Lukas Waschuk
      */
     fun enemyColor(): Color {
         return if (this.p1Turn) Color.B else Color.W
@@ -53,8 +54,8 @@ class Turn(p1Turn: Boolean = true) {
     /**
      * To convert the enum into a string for error messages
      *
-     * @param nothing
      * @return The string of the color
+     * @author Lukas Waschuk
      */
     fun colorToString(): String {
         return when (color) {
@@ -69,8 +70,7 @@ class Turn(p1Turn: Boolean = true) {
     /**
      * Move the turn and all values from p1 -> p2 -> p1 etc...
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     fun nextTurn() {
         logger.debug("Changing Turn")

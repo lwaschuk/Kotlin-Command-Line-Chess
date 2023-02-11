@@ -3,7 +3,7 @@ package game_helpers
 /**
  * A class that contains the Start Location and the End Location
  *
- * @param nothing
+ * @author Lukas Waschuk
  */
 class ChessMove {
     private val chessMove: Pair<Location, Location>
@@ -12,6 +12,7 @@ class ChessMove {
      * Constructs the chessMove from the user input ex. a2a4
      *
      * @param input the string the user input
+     * @author Lukas Waschuk
      */
     constructor(input: String) {
         val startRow = input[1] - '1'
@@ -30,6 +31,7 @@ class ChessMove {
      *
      * @param start The starting Location
      * @param end The ending Location
+     * @author Lukas Waschuk
      */
     constructor(start: Location, end: Location) {
         this.chessMove = Pair(start, end)
@@ -39,6 +41,7 @@ class ChessMove {
      * Method to return the starting location of a chess move
      *
      * @return the starting location
+     * @author Lukas Waschuk
      */
     fun startLocation(): Location {
         return this.chessMove.first
@@ -48,6 +51,7 @@ class ChessMove {
      * Method to return the ending location of a chess move
      *
      * @return the ending location
+     * @author Lukas Waschuk
      */
     fun endLocation(): Location {
         return this.chessMove.second

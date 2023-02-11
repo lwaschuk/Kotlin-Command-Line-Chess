@@ -6,17 +6,15 @@ import run.Logger
 /**
  * A chessboard class that contains public methods to get/set a piece on the board, as well as render the board
  *
- * @param nothing
+ * @author Lukas Waschuk
  */
 class ChessBoard {
-    private val logger = Logger(this.javaClass.name)
     private var chessBoard = Array(8) { Array<ChessPiece>(8) { EmptySpot() } }
 
     /**
      * Print the board to the console
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     fun render() {
         println("  +---+---+---+---+---+---+---+---+")
@@ -40,6 +38,7 @@ class ChessBoard {
      *
      * @param coordinates The location of the piece we are interested in
      * @return The piece
+     * @author Lukas Waschuk
      */
     fun getPiece(coordinates: Location): ChessPiece {
         return this.chessBoard[coordinates.row()][coordinates.column()]
@@ -48,8 +47,8 @@ class ChessBoard {
     /**
      * Sets a chess piece on the board
      *
-     * @param coordinates The location of the piece we are interested in setting
-     * @return nothing
+     * @param location The location of the piece we are interested in setting
+     * @author Lukas Waschuk
      */
     fun setPiece(location: Location, piece: ChessPiece) {
         this.chessBoard[location.row()][location.column()] = piece

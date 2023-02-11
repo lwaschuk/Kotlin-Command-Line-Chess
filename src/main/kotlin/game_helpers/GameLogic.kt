@@ -8,7 +8,8 @@ import kotlin.math.min
 /**
  * The class that is responsible for all the Game Logic. Checks for Check, Checkmate, Stalemate, Legal Moves.
  *
- * @param chessBoard the board the game will be ran on
+ * @param chessBoard the board the game will be run on
+ * @author Lukas Waschuk
  */
 class GameLogic(chessBoard: ChessBoard) {
     private val logger = Logger(this.javaClass.name)
@@ -21,8 +22,7 @@ class GameLogic(chessBoard: ChessBoard) {
     /**
      * The public method to begin the game
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     fun startGame() {
         logger.debug("Run Game Started")
@@ -37,6 +37,7 @@ class GameLogic(chessBoard: ChessBoard) {
      *
      * @param turn Information on whose turn it is
      * @return Boolean for if any legal moves can be made
+     * @author Lukas Waschuk
      */
     fun legalMoves(turn: Turn): Boolean {
         logger.debug("Legal Moves Started, Turn is ${turn.colorToString()}")
@@ -60,6 +61,7 @@ class GameLogic(chessBoard: ChessBoard) {
      * @param turn Information on whose turn it is
      *
      * @return Boolean stating if the king is in check
+     * @author Lukas Waschuk
      */
     fun check(turn: Turn): Boolean {
         val enemyMoves = mutableSetOf<ChessMove>()
@@ -88,6 +90,7 @@ class GameLogic(chessBoard: ChessBoard) {
      * @param enemyTurn Information on the enemy (pc color etc..)
      *
      * @return Set<enemyMoves> -> the set of all legal moves the enemy can make that can attack the king
+     * @author Lukas Waschuk
      */
     private fun checkLineOfSight(kingLocation: Location, turn: Turn, enemyTurn: Turn): Set<ChessMove> {
         val enemyMoves = mutableSetOf<ChessMove>()
@@ -127,6 +130,7 @@ class GameLogic(chessBoard: ChessBoard) {
      * @param enemyTurn Information on the enemy (pc color etc..)
      *
      * @return Set<enemyMoves> -> the set of all legal moves the enemy can make that can attack the king
+     * @author Lukas Waschuk
      */
     private fun checkKnightMovement (kingLocation: Location, turn: Turn, enemyTurn: Turn): Set<ChessMove> {
         val enemyMoves = mutableSetOf<ChessMove>()
@@ -156,6 +160,7 @@ class GameLogic(chessBoard: ChessBoard) {
      * @param location The location of the piece we are interested in
      * @param chessBoard The board
      * @param turn Information on whose turn it is
+     * @author Lukas Waschuk
      */
     private fun findMoves(location: Location, chessBoard: ChessBoard, turn: Turn): Set<ChessMove> {
         val possibleMoves = mutableSetOf<Location>()
@@ -174,6 +179,7 @@ class GameLogic(chessBoard: ChessBoard) {
      *
      * @param turn Information on whose turn it is
      * @return Location(row,col) The location of the king
+     * @author Lukas Waschuk
      */
     private fun kingsLocation(turn: Turn): Location {
         for (row in ChessBoard.ROW_START..ChessBoard.ROW_END) {
@@ -196,6 +202,7 @@ class GameLogic(chessBoard: ChessBoard) {
      * @param turn Information on whose turn it is
      *
      * @return Boolean representing if the king is in check or not
+     * @author Lukas Waschuk
      */
     fun tmpMove(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
         val startLocation = chessMove.startLocation()
@@ -220,6 +227,7 @@ class GameLogic(chessBoard: ChessBoard) {
      * @param turn Information on whose turn it is
      *
      * @return Set<Location> containing the location for all the pieces owned by <turn>
+     * @author Lukas Waschuk
      */
     private fun allLocations(turn: Turn): Set<Location> {
         val locations = mutableSetOf<Location>()
@@ -241,6 +249,7 @@ class GameLogic(chessBoard: ChessBoard) {
      * @param turn Information on whose turn it is
      * @param kingside Kingside or Queenside castle
      * @return Boolean representing if a king-side castle is possible
+     * @author Lukas Waschuk
      */
     fun kingsCastle(turn: Turn, kingside: Boolean): Boolean {
         val kingsLocation = Location(if (turn.getTurn()) 0 else 7, 4)
@@ -261,6 +270,7 @@ class GameLogic(chessBoard: ChessBoard) {
      * @param turn Information on whose turn it is
      * @param kingside Kingside or Queenside castle
      * @return Boolean representing if a queen-side castle is possible
+     * @author Lukas Waschuk
      */
     fun queensCastle(turn: Turn, kingside: Boolean): Boolean {
         val kingsLocation = Location(if (turn.getTurn()) 0 else 7, 4)
@@ -280,6 +290,7 @@ class GameLogic(chessBoard: ChessBoard) {
      *
      * @param kingLocation The location of the king
      * @param rooksLocation The location of the rook
+     * @author Lukas Waschuk
      */
     private fun pieceBetween(kingLocation: Location, rooksLocation: Location): Boolean {
         for (col in min(kingLocation.column(), rooksLocation.column())+1 until max(kingLocation.column(), rooksLocation.column())) {
@@ -295,7 +306,7 @@ class GameLogic(chessBoard: ChessBoard) {
      *
      * @param turn Information on whose turn it is
      * @param kingside Kingside or Queenside castle
-     * @return nothing
+     * @author Lukas Waschuk
      */
     fun castle(turn: Turn, kingside: Boolean) {
         val kingsLocation = Location(if (turn.getTurn()) 0 else 7, 4)
@@ -319,6 +330,7 @@ class GameLogic(chessBoard: ChessBoard) {
      *
      * @param chessMove Information on the start location of the targeted piece
      * @param turn Information on whose turn it is
+     * @author Lukas Waschuk
      */
     fun sourceCoordinateVerifier(chessMove: ChessMove, turn: Turn): Boolean {
         val startCoordinates = chessMove.startLocation()
@@ -329,8 +341,7 @@ class GameLogic(chessBoard: ChessBoard) {
     /**
      * Initialize all the chess pieces
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     private fun initChessPieces() {
         initPawns()
@@ -344,8 +355,7 @@ class GameLogic(chessBoard: ChessBoard) {
     /**
      * Initialize all the King pieces
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     private fun initKings() {
         chessBoard.setPiece(Location(0,4), King(Color.W))
@@ -355,8 +365,7 @@ class GameLogic(chessBoard: ChessBoard) {
     /**
      * Initialize all the Queen pieces
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     private fun initQueens() {
         chessBoard.setPiece(Location(0,3), Queen(Color.W))
@@ -366,7 +375,6 @@ class GameLogic(chessBoard: ChessBoard) {
     /**
      * Initialize all the Bishop pieces
      *
-     * @param nothing
      * @return nothing
      */
     private fun initBishops() {
@@ -379,8 +387,7 @@ class GameLogic(chessBoard: ChessBoard) {
     /**
      * Initialize all the Knight pieces
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     private fun initKnights(){
         chessBoard.setPiece(Location(0,1), Knight(Color.W))
@@ -392,8 +399,7 @@ class GameLogic(chessBoard: ChessBoard) {
     /**
      * Initialize all the Rook pieces
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     private fun initRooks(){
         chessBoard.setPiece(Location(0, 0), Rook(Color.W))
@@ -405,8 +411,7 @@ class GameLogic(chessBoard: ChessBoard) {
     /**
      * Initialize all the Pawn pieces
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     private fun initPawns() {
         for (col in 0 until 8) {

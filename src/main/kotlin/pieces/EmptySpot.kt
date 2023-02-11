@@ -5,15 +5,14 @@ import game_helpers.Location
 /**
  * Empty Spot Chess Piece
  *
- * @param color Will always be EMPTY
+ * @author Lukas Waschuk
  */
 class EmptySpot : ChessPiece(Color.E, PieceType.EMPTY, directions()) {
 
     /**
      * Prints the unicode representation of the corresponding piece
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     override fun print(): String {
         return " "
@@ -22,8 +21,7 @@ class EmptySpot : ChessPiece(Color.E, PieceType.EMPTY, directions()) {
         /**
          * The possible directions the piece can move in
          *
-         * @param nothing
-         * @return nothing
+         * @author Lukas Waschuk
          */
         fun directions(): List<Location> {
             return listOf(

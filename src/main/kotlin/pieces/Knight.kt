@@ -26,8 +26,7 @@ class Knight(color: Color) : ChessPiece(color, PieceType.KNIGHT, directions()) {
         /**
          * The possible directions the piece can move in
          *
-         * @param nothing
-         * @return nothing
+         * @author Lukas Waschuk
          */
         fun directions(): List<Location> {
             return listOf(
