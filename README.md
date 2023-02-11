@@ -5,6 +5,15 @@ chess game features a wide range of features such as Check, Checkmate, Stalemate
 pawn en passant logic. It is a perfect choice for anyone who wants to play chess on their terminal or anyone who wants 
 to learn more about the game of chess.
 
+
+[![Documentation](https://img.shields.io/static/v1?label=Documentation&message=Latest&color=<blue>.svg?style=for-the-badge&logo=appveyor)](https://napkinzz.github.io/Kotlin-Command-Line-Chess/)
+
+## Releases
+[![Release](https://img.shields.io/github/release/Napkinzz/Kotlin-Command-Line-Chess.svg?style=for-the-badge&logo=appveyor)](https://github.com/Napkinzz/Kotlin-Command-Line-Chess/releases)
+
+[![Software License](https://img.shields.io/github/license/Napkinzz/Kotlin-Command-Line-Chess?style=for-the-badge&logo=appveyor)](LICENSE.md)
+
+
 ## Features
 
 * Check logic
@@ -13,53 +22,26 @@ to learn more about the game of chess.
 * All piece movement logic (King, Queen, Rook, Bishop, Knight, and Pawn)
 * Pawn en passant logic
 
-## Requirements
-
-* Java 11 or higher 
-* Kotlin 1.5 or higher
-
-
 ## Getting Started
 
 To run this chess game on your system, you need to install Java 11 or higher and Kotlin 1.5 or higher. You can download 
 the latest version of these tools from the official websites.
 
-Once you have installed Java and Kotlin, clone this repository to your system using the following command:
+Run the game using the following command:
 
 ```bash
-git clone https://github.com/<username>/kotlin-chess-game.git
+./gradlew run --quiet --console=plain
 ```
 
-Next, navigate to the cloned repository directory:
+You can build and run the .jar locally:
 
 ```bash
-cd kotlin-chess-game
+./gradlew fatJar
+java -jar build/libs/KCL-Chess.jar
 ```
+Or, you can download the pre-compiled .jar from the [releases page][releases] page.
 
-Finally, run the game using the following command:
-
-```bash
-chmod +x gradlew
-./gradlew run
-```
-
-Or you can build and run the .jar locally:
-
-```bash
-chmod +x gradlew
-./gradlew build
-cd build/libs 
-java -jar Chess-1.0-SNAPSHOT-standalone.jar
-```
-
-To run in Debug Mode: 
-
-```bash
-chmod +x gradlew
-./gradlew build
-cd build/libs 
-java -jar Chess-1.0-SNAPSHOT-standalone.jar --debug
-```
+[releases]:  https://github.com/Napkinzz/Kotlin-Command-Line-Chess/releases
 
 ## How to Play
 
@@ -113,8 +95,3 @@ The king and rook can perform a special move called castling. In castling, the k
 ## Testing
 
 I did basic movement tests, there is no value to make more for a command line game of chess... when chess.com exists! 
-
-## Conclusion
-
-Kotlin Chess Game is a fun and challenging way to play chess on your terminal with a friend. Whether you are an experienced player or 
-a beginner, you will find this game to be a great way to improve your chess skills. So, go ahead and give it a try!
