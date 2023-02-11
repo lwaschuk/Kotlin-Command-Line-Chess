@@ -9,7 +9,7 @@ to learn more about the game of chess.
 [![Documentation](https://img.shields.io/static/v1?label=Documentation&message=Latest&color=<blue>.svg?style=for-the-badge)](https://napkinzz.github.io/Kotlin-Command-Line-Chess/)
 
 ## Releases
-[![Release](https://img.shields.io/github/release/Napkinzz/Kotlin-Command-Line-Chess.svg?style=for-the-badge)](https://github.com/Napkinzz/GPACalc/releases)
+[![Release](https://img.shields.io/github/release/Napkinzz/Kotlin-Command-Line-Chess.svg?style=for-the-badge)](https://github.com/Napkinzz/Kotlin-Command-Line-Chess/releases)
 
 [![Software License](https://img.shields.io/github/license/Napkinzz/Kotlin-Command-Line-Chess.svg?style=for-the-badge)](LICENSE.md)
 
