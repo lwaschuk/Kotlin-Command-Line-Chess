@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "me.lukas"
-version = "1.0-SNAPSHOT"
+version = "1.1"
 
 repositories {
     mavenCentral()
@@ -68,8 +68,6 @@ tasks.getByName<JavaExec>("run") {
     standardInput = System.`in`
 }
 
-
-
 tasks.dokkaHtml.configure {
     outputDirectory.set(buildDir.resolve("Documentation"))
 
@@ -80,5 +78,5 @@ tasks.dokkaHtml.configure {
     }
 }
 application {
-    mainClass.set("MainKt")
+    mainClass.set("run.Run")
 }
