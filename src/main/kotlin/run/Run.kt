@@ -12,15 +12,14 @@ import kotlin.system.exitProcess
 /**
  * All methods to run the game loop
  *
- * @param nothing
+ * @author Lukas Waschuk
  */
 class Run {
     private val logger = Logger(this.javaClass.name)
     /**
      * The Game Loop
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     fun runGame(){
         logger.debug("Run Game Started")
@@ -147,6 +146,7 @@ class Run {
      * @param s the input string
      *
      * @return true After it is validated
+     * @author Lukas Waschuk
      */
     private fun verifyInput(s: String): Boolean {
         if (s == "exit") return true
@@ -164,6 +164,10 @@ class Run {
         return true
     }
 
+    /**
+     * Method for handling help information for command line usage
+     * @author Lukas Waschuk
+     */
     private fun help() {
         println("\nKotlin Command Line Help:")
         println(">> Pawns: \n\t Can move forward one square at a time, or two squares if they are on their starting square. They capture pieces by \n\t moving one square diagonally.")
@@ -180,8 +184,7 @@ class Run {
     /**
      * Helper function for runGame(), exits the game
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     private fun bye() {
         println("Bye!")
@@ -194,6 +197,7 @@ class Run {
      * @param p1Turn Boolean representing player ones turn
      *
      * @return String Readline()
+     * @author Lukas Waschuk
      */
     private fun getInput(p1Turn: Boolean): String {
         if (p1Turn) {
@@ -211,6 +215,7 @@ class Run {
      * @param s The input string
      *
      * @return Boolean Representing if the user input == 'exit'
+     * @author Lukas Waschuk
      */
     private fun exit(s: String?): Boolean {
         return s == "exit"
@@ -221,6 +226,7 @@ class Run {
          * Entry point for the game, sets debug if we want to see log messages
          *
          * @param args the optional flags for help or debug
+         * @author Lukas Waschuk
          */
         @JvmStatic
         fun main(args: Array<String>) {

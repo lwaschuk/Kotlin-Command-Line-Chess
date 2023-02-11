@@ -7,6 +7,7 @@ import run.Logger
  *
  * @param row The row
  * @param col The column
+ * @author Lukas Waschuk
  */
 class Location(row: Int, col: Int) {
     private val logger = Logger(this.javaClass.name)
@@ -22,8 +23,7 @@ class Location(row: Int, col: Int) {
     /**
      * A public method to return the row of a Location
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     fun row(): Int {
         return this.location.first
@@ -32,8 +32,7 @@ class Location(row: Int, col: Int) {
     /**
      * A public method to return the column of a Location
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     fun column(): Int {
         return this.location.second
@@ -42,8 +41,8 @@ class Location(row: Int, col: Int) {
     /**
      * A public method to return the values of a Location as a Pair
      *
-     * @param nothing
      * @return Pair containing the integer location of row/col
+     * @author Lukas Waschuk
      */
     fun value(): Pair<Int, Int> {
         return this.location
@@ -52,8 +51,8 @@ class Location(row: Int, col: Int) {
     /**
      * A public method to see if a prospective move is actually on the board
      *
-     * @param location the location of the move we want to make
      * @return Boolean representing if it is a valid move or not
+     * @author Lukas Waschuk
      */
     fun isValid(): Boolean {
         return this.row() in ChessBoard.ROW_START..ChessBoard.ROW_END

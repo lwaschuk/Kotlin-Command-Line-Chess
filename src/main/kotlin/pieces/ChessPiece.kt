@@ -12,6 +12,7 @@ import run.Logger
  * @param color Who "owns" this piece
  * @param pieceType What kind of piece this is
  * @param directions all the possible directions this piece can move
+ * @author Lukas Waschuk
  */
 abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<Location>) {
     private val logger = Logger(this.javaClass.name)
@@ -30,8 +31,8 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
     /**
      * The method to force every child class to implement a way to print its piece
      *
-     * @param nothing
      * @return unicode string of the piece
+     * @author Lukas Waschuk
      */
     abstract fun print(): String
 
@@ -44,6 +45,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param turn information on whose turn it is
      *
      * @return Boolean Whether the piece can move
+     * @author Lukas Waschuk
      */
     fun move(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
         return when (this.pieceType) {
@@ -64,6 +66,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param turn information on whose turn it is
      *
      * @return Boolean Whether the piece can move
+     * @author Lukas Waschuk
      */
     private fun notPawnMove(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
         val possibleMoves = possibleMoves(chessMove.startLocation(), chessBoard, turn)
@@ -81,8 +84,8 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
     /**
      * Public function to see if a piece has been moved yet
      *
-     * @param nothing
      * @return Boolean representing if the piece has moved or not
+     * @author Lukas Waschuk
      */
     fun hasMoved(): Boolean {
         return this.hasMoved
@@ -96,6 +99,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param turn information on whose turn it is
      *
      * @return Boolean Whether the piece can move
+     * @author Lukas Waschuk
      */
     private fun pawnMove(chessMove: ChessMove, chessBoard: ChessBoard, turn: Turn): Boolean {
         val possibleMoves = possibleMoves(chessMove.startLocation(), chessBoard, turn)
@@ -156,6 +160,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param turn information on whose turn it is
      *
      * @return Boolean Whether the pawn can promote
+     * @author Lukas Waschuk
      */
     private fun canPromote(chessMove: ChessMove, turn: Turn): Boolean {
         val endRow = if (turn.getColor() == Color.W) ChessBoard.ROW_END else ChessBoard.ROW_START
@@ -171,6 +176,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      *
      * @param nothing
      * @return String the input from the user
+     * @author Lukas Waschuk
      */
     private fun getInput(): String {
         print("Promote Pawn (B, R, K, Q):\n> ")
@@ -182,6 +188,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      *
      * @param input The piece the player intends to promote the pawn to
      * @return String
+     * @author Lukas Waschuk
      */
     private fun verifyInput(input: String): Boolean {
         val types = listOf("B", "R", "K", "Q")
@@ -194,6 +201,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param input The piece the player intends to promote the pawn to
      * @param turn Information on whose turn it is
      * @return ChessPiece The Piece class of the new piece
+     * @author Lukas Waschuk
      */
     private fun convertToPiece(input: String, turn: Turn): ChessPiece {
         return when (input) {
@@ -212,6 +220,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param chessBoard The board
      * @param turn Information on whose turn it is
      * @return Set<Location> The set of all locations the piece can move
+     * @author Lukas Waschuk
      */
     fun possibleMoves(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
         val possibleMoves = mutableSetOf<Location>()
@@ -238,6 +247,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param chessBoard The board
      * @param turn Information on whose turn it is
      * @return Set<Location> The set of all locations the piece can move
+     * @author Lukas Waschuk
      */
     private fun additiveMovement(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
         val possibleMoves = mutableSetOf<Location>()
@@ -268,6 +278,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param chessBoard The board
      * @param turn Information on whose turn it is
      * @return Set<Location> The set of all locations the piece can move
+     * @author Lukas Waschuk
      */
     private fun staticMovement(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
         val possibleMoves = mutableSetOf<Location>()
@@ -293,6 +304,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param chessBoard The board
      * @param turn Information on whose turn it is
      * @return Set<Location> The set of all locations the piece can move
+     * @author Lukas Waschuk
      */
     private fun pawnMovement(startLocation: Location, chessBoard: ChessBoard, turn: Turn): Set<Location> {
         val possibleMoves = mutableSetOf<Location>()
@@ -311,6 +323,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param chessBoard The board
      * @param turn Information on whose turn it is
      * @return Set<Location> The set of all locations the piece can move
+     * @author Lukas Waschuk
      */
     private fun getStraightMoves(chessBoard: ChessBoard, turn: Turn, movement: Int, startLocation: Location): Set<Location> {
         val possibleMoves = mutableSetOf<Location>()
@@ -342,6 +355,7 @@ abstract class ChessPiece(color: Color, pieceType: PieceType, directions: List<L
      * @param chessBoard The board
      * @param turn Information on whose turn it is
      * @return Set<Location> The set of all locations the piece can move
+     * @author Lukas Waschuk
      */
     private fun getAttackMoves(chessBoard: ChessBoard, turn: Turn, movement: Int, startLocation: Location): Set<Location> {
         val possibleMoves = mutableSetOf<Location>()

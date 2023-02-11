@@ -3,13 +3,38 @@ package run
 import game_helpers.Location
 import mu.KotlinLogging
 
+/**
+ * The `Logger` class provides a simple wrapper around KotlinLogging to log messages at different levels.
+ *
+ * @param name the name of the logger
+ * @author Lukas Waschuk
+ */
 class Logger(name: String) {
     private val logger = KotlinLogging.logger(name)
+
+    /**
+     * Log a trace message
+     *
+     * @param message the message to log
+     * @author Lukas Waschuk
+     */
     fun trace(message: String) = logger.trace(message)
+
+    /**
+     * Log a debug message
+     *
+     * @param message the message to log
+     * @author Lukas Waschuk
+     */
     fun debug(message: String) = logger.debug(message)
-    fun info(message: String) = logger.info(message)
+
+    /**
+     * Log a warn message
+     *
+     * @param message the message to log
+     * @author Lukas Waschuk
+     */
     fun warn(message: String) = logger.warn(message)
-    fun error(message: String) = logger.error(message)
 
     companion object {
         /**
@@ -19,6 +44,7 @@ class Logger(name: String) {
          * @param input the set of chess moves to convert
          *
          * @return the set of moves in a human-readable representation
+         * @author Lukas Waschuk
          */
         fun convertSetOfLocations(input: Set<Location>): Set<Pair<Char, Char>> {
             val newSet = mutableSetOf<Pair<Char, Char>>()
@@ -37,6 +63,7 @@ class Logger(name: String) {
          * @param input the location to convert
          *
          * @return the location in a human-readable representation
+         * @author Lukas Waschuk
          */
         fun convertLocation(input: Location): Pair<Char, Char> {
             val letter = input.column() + 'a'.code

@@ -6,14 +6,14 @@ import game_helpers.Location
  * Rook Chess Piece
  *
  * @param color Who the piece belongs to
+ * @author Lukas Waschuk
  */
 class Rook(color: Color) : ChessPiece(color, PieceType.ROOK, directions()) {
 
     /**
      * Prints the unicode representation of the corresponding piece
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     override fun print(): String {
         return if (this.color == Color.W){
@@ -26,8 +26,7 @@ class Rook(color: Color) : ChessPiece(color, PieceType.ROOK, directions()) {
         /**
          * The possible directions the piece can move in
          *
-         * @param nothing
-         * @return nothing
+         * @author Lukas Waschuk
          */
         fun directions(): List<Location> {
             return listOf(

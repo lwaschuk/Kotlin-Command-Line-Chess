@@ -6,14 +6,14 @@ import game_helpers.Location
  * Bishop Chess Piece
  *
  * @param color Who the piece belongs to
+ * @author Lukas Waschuk
  */
 class Bishop(color: Color) : ChessPiece(color, PieceType.BISHOP, directions()) {
 
     /**
      * Prints the unicode representation of the corresponding piece
      *
-     * @param nothing
-     * @return nothing
+     * @author Lukas Waschuk
      */
     override fun print(): String {
         return if (this.color == Color.W){
@@ -26,8 +26,7 @@ class Bishop(color: Color) : ChessPiece(color, PieceType.BISHOP, directions()) {
         /**
          * The possible directions the piece can move in
          *
-         * @param nothing
-         * @return nothing
+         * @author Lukas Waschuk
          */
         fun directions(): List<Location> {
             return listOf(
