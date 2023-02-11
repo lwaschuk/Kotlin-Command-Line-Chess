@@ -11,7 +11,8 @@ to learn more about the game of chess.
 ## Releases
 [![Release](https://img.shields.io/github/release/Napkinzz/Kotlin-Command-Line-Chess.svg?style=for-the-badge)](https://github.com/Napkinzz/Kotlin-Command-Line-Chess/releases)
 
-[![Software License](https://img.shields.io/github/license/Napkinzz/Kotlin-Command-Line-Chess.svg?style=for-the-badge)](LICENSE.md)
+[![Software License](https://img.shields.io/github/license/Napkinzz/Kotlin-Command-Line-Chess?style=for-the-badge)](LICENSE.md)
+
 
 ## Features
 
