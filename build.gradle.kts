@@ -45,7 +45,7 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks {
-    val fatJar = register<Jar>("Fat Jar") {
+    val fatJar = register<Jar>("fatJar") {
         dependsOn.addAll(listOf("compileJava", "compileKotlin", "processResources")) // We need this for Gradle optimization to work
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         manifest { attributes(mapOf("Main-Class" to application.mainClass)) } // Provided we set it up in the application plugin configuration

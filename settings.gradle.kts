@@ -1,3 +1,1 @@
-
-rootProject.name = "Kotlin-Command-Line-Chess"
-
+rootProject.name = "KCL-Chess"
