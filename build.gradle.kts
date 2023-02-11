@@ -7,7 +7,6 @@ plugins {
 }
 
 group = "me.lukas"
-version = "1.1"
 
 repositories {
     mavenCentral()
@@ -46,9 +45,8 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks {
-    val jar = register<Jar>("Fat Jar") {
+    val fatJar = register<Jar>("Fat Jar") {
         dependsOn.addAll(listOf("compileJava", "compileKotlin", "processResources")) // We need this for Gradle optimization to work
-        archiveClassifier.set("standalone") // Naming the jar
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
         manifest { attributes(mapOf("Main-Class" to application.mainClass)) } // Provided we set it up in the application plugin configuration
         val sourcesMain = sourceSets.main.get()
@@ -59,8 +57,7 @@ tasks {
     }
 
     build {
-        dependsOn(jar) // Create a .jar every build
-        dependsOn(dokkaHtml) // Create Doc's every build
+        dependsOn(fatJar) // Create a .jar every build
     }
 }
 
@@ -69,7 +66,7 @@ tasks.getByName<JavaExec>("run") {
 }
 
 tasks.dokkaHtml.configure {
-    outputDirectory.set(buildDir.resolve("Documentation"))
+    outputDirectory.set(buildDir.resolve("docs"))
 
     dokkaSourceSets {
         configureEach{
